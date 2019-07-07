@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'io.micronaut.configuration'
+version projectVersion
+
+repositories {
+    jcenter()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "io.micronaut:micronaut-bom:$micronautVersion"
+    }
+}
+dependencies {
+    annotationProcessor 'io.micronaut:micronaut-inject-java'
+    compile 'io.micronaut:micronaut-inject'
+    compile 'io.micronaut:micronaut-runtime'
+    compileOnly 'io.micronaut:micronaut-graal'
+    compile "info.picocli:picocli:$picocliVersion"
+    testCompile 'io.micronaut:micronaut-inject-java'
+    testCompile 'junit:junit:4.7'
+}
