@@ -68,15 +68,14 @@ public class MicronautFactoryTest {
     }
 
     static AtomicInteger count = new AtomicInteger();
+}
 
-    @Singleton
-    static class A {
-        @Value("${a.name:hello}")
-        String injectedValue;
-    }
+@Singleton
+class A {
+    @Value("${a.name:hello}")
+    String injectedValue;
+}
 
-    static class B {
-        final int seq = count.incrementAndGet();
-    }
-
+class B {
+    final int seq = MicronautFactoryTest.count.incrementAndGet();
 }

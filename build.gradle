@@ -1,8 +1,27 @@
+plugins {
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group 'io.micronaut.configuration'
+version projectVersion
+
+repositories {
+    jcenter()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "io.micronaut:micronaut-bom:$micronautVersion"
+    }
+}
 dependencies {
-    compile project(":inject")
-    compile project(":runtime")
-    compileOnly project(":inject-java")
-    compileOnly project(":graal")
+    annotationProcessor 'io.micronaut:micronaut-inject-java'
+    compile 'io.micronaut:micronaut-inject'
+    compile 'io.micronaut:micronaut-runtime'
+    compileOnly 'io.micronaut:micronaut-graal'
     compile "info.picocli:picocli:$picocliVersion"
-    testCompile project(":inject-java")
+    testCompile 'io.micronaut:micronaut-inject-java'
+    testCompile 'junit:junit:4.7'
 }
