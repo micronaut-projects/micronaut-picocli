@@ -56,20 +56,20 @@ if [[ $EXIT_STATUS -eq 0 ]]; then
          ./gradlew publish --no-daemon --stacktrace || EXIT_STATUS=$?
      fi
 
-#      if [[ $EXIT_STATUS -eq 0 ]]; then
-#       ./gradlew --console=plain --no-daemon docs  || EXIT_STATUS=$?
-#
-#        git clone https://${GH_TOKEN}@github.com/micronaut-projects/micronaut-gcp.git -b gh-pages gh-pages --single-branch > /dev/null
-#
-#        cd gh-pages
-#
-#        # If this is the master branch then update the snapshot
-#        if [[ $TRAVIS_BRANCH =~ ^master|[12]\..\.x$ ]]; then
-#           mkdir -p snapshot
-#           cp -r ../build/docs/. ./snapshot/
-#
-#           git add snapshot/*
-#        fi
+     if [[ $EXIT_STATUS -eq 0 ]]; then
+       ./gradlew --console=plain --no-daemon docs  || EXIT_STATUS=$?
+
+        git clone https://${GH_TOKEN}@github.com/micronaut-projects/micronaut-gcp.git -b gh-pages gh-pages --single-branch > /dev/null
+
+        cd gh-pages
+
+        # If this is the master branch then update the snapshot
+        if [[ $TRAVIS_BRANCH =~ ^master|[12]\..\.x$ ]]; then
+           mkdir -p snapshot
+           cp -r ../build/docs/. ./snapshot/
+
+           git add snapshot/*
+        fi
 
 
 #        # If there is a tag present then this becomes the latest
@@ -93,13 +93,13 @@ if [[ $EXIT_STATUS -eq 0 ]]; then
 #
 #        fi
 #
-#        git commit -a -m "Updating docs for Travis build: https://travis-ci.org/$TRAVIS_REPO_SLUG/builds/$TRAVIS_BUILD_ID" && {
-#          git push origin HEAD || true
-#        }
-#        cd ..
-#
-#        rm -rf gh-pages
-#      fi
+        git commit -a -m "Updating docs for Travis build: https://travis-ci.org/$TRAVIS_REPO_SLUG/builds/$TRAVIS_BUILD_ID" && {
+          git push origin HEAD || true
+        }
+        cd ..
+
+        rm -rf gh-pages
+      fi
    fi
 fi
 

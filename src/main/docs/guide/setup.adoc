@@ -1,0 +1,1 @@
+dependency:io.micronaut:micronaut-picocli[version="{version}"]

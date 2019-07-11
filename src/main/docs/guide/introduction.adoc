@@ -1,0 +1,3 @@
+The `micronaut-picocli` module includes support for creating Micronaut Picocli applications.
+
+See https://docs.micronaut.io/latest/guide/index.html#picocli[Micronaut Picocli] docs details.
