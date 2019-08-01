@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/micronaut-projects/micronaut-picocli.svg?branch=master)](https://travis-ci.org/micronaut-projects/micronaut-picocli)
 
 
-This project includes integration with PicoCLI for [Micronaut](http://micronaut.io).
+This project includes integration with Picocli for [Micronaut](http://micronaut.io).
 
 ## Documentation
 
