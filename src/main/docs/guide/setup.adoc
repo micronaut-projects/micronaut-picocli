@@ -1,1 +1,22 @@
-dependency:io.micronaut:micronaut-picocli[version="{version}"]
+
+[TIP]
+.Using the CLI
+====
+If you are creating your project using the Micronaut CLI, supply the `picocli` feature to configure Picocli in your project:
+----
+$ mn create-app my-app --features picocli
+----
+====
+
+
+To add support for Picocli to an existing project, you should first add the picocli dependency and the Micronaut picocli configuration to your build configuration.
+
+dependency:info.picocli:picocli[]
+
+dependency:io.micronaut.configuration:micronaut-picocli[version="{version}"]
+
+=== Configuring picocli
+
+Picocli does not require configuration. See other sections of the manual for configuring the services and resources to inject.
+
+
