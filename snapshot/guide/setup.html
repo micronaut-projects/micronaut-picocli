@@ -2,6 +2,15 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script src="/cdn-cgi/apps/head/3cOPSgo5Omz84ycX7CvigfX4cpw.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=UA-82213539-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-82213539-2');
+    </script>
     <title>2 Setting up Picocli 1.2.0.BUILD-SNAPSHOT</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
@@ -35,6 +44,9 @@ function addJsClass() {
                         <div class="toc-item" style="margin-left:0"><a href="../guide/setup.html"><strong>2</strong><span>Setting up Picocli</span></a>
                         </div>
                         
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/quickstart.html"><strong>3</strong><span>Picocli Quick Start</span></a>
+                        </div>
+                        
                     </div>
                 </div>
             </li>
@@ -59,6 +71,8 @@ function addJsClass() {
                 <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
 
                 
+                    <div class="toc-item next-right"><a href="../guide/quickstart.html"><strong>3</strong><span>Picocli Quick Start</span> >></a></div>
+                
 
 
                 <div class="project">
@@ -80,16 +94,55 @@ function addJsClass() {
 </div>
 
 
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title">Using the CLI</div>
+<div class="paragraph">
+<p>If you are creating your project using the Micronaut CLI, supply the <code>picocli</code> feature to configure Picocli in your project:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ mn create-app my-app --features picocli</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To add support for Picocli to an existing project, you should first add the picocli dependency and the Micronaut picocli configuration to your build configuration.</p>
+</div>
 <div class="paragraph">
 <p>        <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="gradle">compile <span class="hljs-string">'io.micronaut:micronaut-picocli:1.2.0.BUILD-SNAPSHOT'</span></code></pre>
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="gradle">compile <span class="hljs-string">'info.picocli:picocli'</span></code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
-    &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
+    &lt;groupId&gt;info.picocli&lt;/groupId&gt;
+    &lt;artifactId&gt;picocli&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="gradle">compile <span class="hljs-string">'io.micronaut.configuration:micronaut-picocli:1.2.0.BUILD-SNAPSHOT'</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.configuration&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-picocli&lt;/artifactId&gt;
     &lt;version&gt;1.2.0.BUILD-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
@@ -97,11 +150,19 @@ function addJsClass() {
 </div>
 </p>
 </div>
+<div class="sect2">
+<h3 id="_configuring_picocli">Configuring picocli</h3>
+<div class="paragraph">
+<p>Picocli does not require configuration. See other sections of the manual for configuring the services and resources to inject.</p>
+</div>
+</div>
 
 
                 <div style="clear:both;margin-top:15px;"></div>
                 
                     <div class="toc-item prev-left"><a href="../guide/introduction.html">&lt;&lt; <strong>1</strong><span>Introduction</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../guide/quickstart.html"><strong>3</strong><span>Picocli Quick Start</span> >></a></div>
                 
                 <div style="clear:both"></div>
             </div>

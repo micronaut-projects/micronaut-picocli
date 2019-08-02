@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script src="/cdn-cgi/apps/head/3cOPSgo5Omz84ycX7CvigfX4cpw.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=UA-82213539-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-82213539-2');
+    </script>
+    <title>3 Picocli Quick Start 1.2.0.BUILD-SNAPSHOT</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <div class="navTitle">
+        
+        Micronaut Picocli Configuration
+    </div>
+    <div class="navLinks">
+        <ul>
+            <li>
+                <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                    <a href="../guide/index.html" class="button">Table of contents</a>
+
+                    <div id="nav-summary-childs" style="display:none;">
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/setup.html"><strong>2</strong><span>Setting up Picocli</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/quickstart.html"><strong>3</strong><span>Picocli Quick Start</span></a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </li>
+            <li class="separator selected">
+                <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+            </li>
+        </ul>
+    </div>
+
+
+</div>
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../guide/setup.html">&lt;&lt; <strong>2</strong><span>Setting up Picocli</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+
+
+                <div class="project">
+                    <h1>3 Picocli Quick Start</h1>
+
+                    <p><strong>Version:</strong> 1.2.0.BUILD-SNAPSHOT</p>
+                </div>
+
+                
+
+                
+
+<h1 id="quickstart">3 Picocli Quick Start</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-picocli/edit/master/src/main/docs/guide/quickstart.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="sect2">
+<h3 id="_creating_a_picocli_command_with_command">Creating a Picocli Command with @Command</h3>
+<div class="paragraph">
+<p>This section will show a quick example that provides a command line interface to a HTTP client that communicates with the GitHub API.</p>
+</div>
+<div class="paragraph">
+<p>When creating this example project with the Micronaut CLI, use the <code>create-cli-app</code> command, and add the <code>--features=http-client</code> flag:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ mn create-cli-app example.git-star --features http-client</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will add the <code>io.micronaut:micronaut-http-client</code> dependency to the build. You can also manually add to your build:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="gradle">compile <span class="hljs-string">'io.micronaut:micronaut-http-client'</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-http-client&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="sect3">
+<h4 id="_an_example_http_client">An Example HTTP Client</h4>
+<div class="paragraph">
+<p>To create a picocli <code>Command</code> you create a class with fields annotated with <code>@Option</code> or <code>@Parameters</code> to capture the values of the command line options or positional parameters, respectively.</p>
+</div>
+<div class="paragraph">
+<p>For example the following is a picocli <code>@Command</code> that wraps around the GitHub API:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example picocli command with injected HTTP client</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package example;
+
+import io.micronaut.configuration.picocli.PicocliRunner;
+import io.micronaut.context.ApplicationContext;
+import io.micronaut.http.client.annotation.*;
+import io.micronaut.http.client.*;
+import io.reactivex.*;
+
+import static io.micronaut.http.HttpRequest.*;
+
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
+
+import java.util.*;
+import javax.inject.Inject;
+
+@Command(name = "git-star", header = {
+        "@|green       _ _      _             |@", <i class="conum" data-value="1"></i><b>(1)</b>
+        "@|green  __ _(_) |_ __| |_ __ _ _ _  |@",
+        "@|green / _` | |  _(_-&lt;  _/ _` | '_| |@",
+        "@|green \\__, |_|\\__/__/\\__\\__,_|_|   |@",
+        "@|green |___/                        |@"},
+        description = "Shows GitHub stars for a project",
+        mixinStandardHelpOptions = true, version = "git-star 0.1") <i class="conum" data-value="2"></i><b>(2)</b>
+public class GitStarCommand implements Runnable {
+
+    @Client("https://api.github.com")
+    @Inject RxHttpClient client; <i class="conum" data-value="3"></i><b>(3)</b>
+
+    @Option(names = {"-v", "--verbose"}, description = "Shows some project details")
+    boolean verbose;
+
+    @Parameters(description = {"One or more GitHub slugs (comma separated) to show stargazers for.",
+                "  Default: ${DEFAULT-VALUE}"}, split = ",", paramLabel = "&lt;owner/repo&gt;") <i class="conum" data-value="4"></i><b>(4)</b>
+    List&lt;String&gt; githubSlugs = Arrays.asList("micronaut-projects/micronaut-core", "remkop/picocli");
+
+    public static void main(String[] args) throws Exception {
+        PicocliRunner.run(GitStarCommand.class, args);
+    }
+
+    public void run() { <i class="conum" data-value="5"></i><b>(5)</b>
+        for (String slug : githubSlugs) {
+            Map m = client.retrieve(
+                    GET("/repos/" + slug).header("User-Agent", "remkop-picocli"),
+                    Map.class).blockingFirst();
+            System.out.printf("%s has %s stars%n", slug, m.get("watchers"));
+
+            if (verbose) {
+                String msg = "Description: %s%nLicense: %s%nForks: %s%nOpen issues: %s%n%n";
+                System.out.printf(msg, m.get("description"),
+                                ((Map) m.get("license")).get("name"),
+                                m.get("forks"), m.get("open_issues"));
+            }
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Headers, footers and descriptions can be multi-line. You can embed ANSI styled text anywhere with the <code>@|STYLE1[,STYLE2]…​ text|@</code> <a href="https://picocli.info/#_usage_help_with_styles_and_colors">markup notation</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Add version information to display when the user requests this with <code>--version</code>. This can also be supplied dynamically, e.g. from the <a href="https://github.com/remkop/picocli/blob/master/examples/src/main/java/picocli/examples/VersionProviderDemo2.java">manifest file</a> or a build-generated version <a href="https://github.com/remkop/picocli/blob/master/examples/src/main/java/picocli/examples/VersionProviderDemo1.java">properties file</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Inject a HTTP client. In this case, hard-coded to the GitHub API endpoint.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>A positional parameter that lets the user select one or more GitHub projects</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>The business logic: display information for each project the user requested.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The usage help message generated for this command looks like this:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../img/picocli-example.png" alt="picocli example"></span></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_subcommands">Subcommands</h3>
+<div class="paragraph">
+<p>If your service has a lot of functionality, a common pattern is to have subcommands to control different areas of the service.
+To allow Micronaut to inject services and resources correctly into the subcommands,
+make sure to obtain subcommand instances from the <code>ApplicationContext</code>, instead of instantiating them directly.</p>
+</div>
+<div class="paragraph">
+<p>The easiest way to do this is to declare the subcommands on the top-level command, like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">A top-level command with subcommands</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Command(name = "topcmd", subcommands = {SubCmd1.class, SubCmd2.class}) <i class="conum" data-value="1"></i><b>(1)</b>
+class TopCommand implements Callable&lt;Object&gt; { <i class="conum" data-value="2"></i><b>(2)</b>
+
+    public static void main(String[] args) throws Exception {
+        PicocliRunner.call(TopCommand.class, args); <i class="conum" data-value="3"></i><b>(3)</b>
+    }
+    //...
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The top-level command has two subcommands, <code>SubCmd1</code> and <code>SubCmd2</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Let all commands in the hierarchy implement <code>Runnable</code> or <code>Callable</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Start the application with <code>PicocliRunner</code>. This creates an <code>ApplicationContext</code> that instantiates the commands and performs the dependency injection.</td>
+</tr>
+</table>
+</div>
+</div>
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../guide/setup.html">&lt;&lt; <strong>2</strong><span>Setting up Picocli</span></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>

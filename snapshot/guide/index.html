@@ -47,6 +47,8 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#setup"><strong>2</strong><span>Setting up Picocli</span></a></div>
                                 
+                                <div class="toc-item" style="margin-left:0"><a href="#quickstart"><strong>3</strong><span>Picocli Quick Start</span></a></div>
+                                
                             </div>
                         </div>
                     </li>
@@ -66,7 +68,6 @@
                 <li class="mobile">
                     <a title="Go to Configuration Reference documentation" href="../guide/configurationreference.html" class="button">Conf</a>
                 </li>
-
             </ul>
 
         </div>
@@ -80,6 +81,8 @@
         <div class="toc-item" style="margin-left:0px" id="toc-item-introduction"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-setup"><a href="#setup"><strong>2</strong><span>Setting up Picocli</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-quickstart"><a href="#quickstart"><strong>3</strong><span>Picocli Quick Start</span></a></div>
         
         </div>
     </div>
@@ -103,10 +106,45 @@
 
 
 <div class="paragraph">
-<p>The <code>micronaut-picocli</code> module includes support for creating Micronaut Picocli applications.</p>
+<p><a href="https://github.com/remkop/picocli">Picocli</a> is a command line parser that supports usage help with ANSI colors, autocomplete and nested subcommands. It has an annotations API to create command line applications with almost no code, and a programmatic API for dynamic uses like creating Domain Specific Languages.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="https://docs.micronaut.io/latest/guide/index.html#picocli">Micronaut Picocli</a> docs details.</p>
+<p>From the project Readme page:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>How it works: annotate your class and picocli initializes it from the command line arguments,
+converting the input to strongly typed data. Supports git-like <a href="http://picocli.info/#_subcommands">subcommands</a>
+(and nested <a href="http://picocli.info/#_nested_sub_subcommands">sub-subcommands</a>),
+any option prefix style, POSIX-style <a href="http://picocli.info/#_short_options">grouped short options</a>,
+<a href="http://picocli.info/#_interactive_password_options">password options</a>,
+custom <a href="http://picocli.info/#_custom_type_converters">type converters</a> and more.
+Parser <a href="http://picocli.info/#_tracing">tracing</a> facilitates troubleshooting.</p>
+</div>
+<div class="paragraph">
+<p>It distinguishes between <a href="http://picocli.info/#_options">named options</a> and
+<a href="http://picocli.info/#_positional_parameters">positional parameters</a> and allows both to be
+<a href="http://picocli.info/#_strongly_typed_everything">strongly typed</a>.
+<a href="http://picocli.info/#_multiple_values">Multi-valued fields</a> can specify
+an exact number of parameters or a <a href="http://picocli.info/#_arity">range</a> (e.g., <code>0..*</code>, <code>1..2</code>).
+Supports <a href="http://picocli.info/#_maps">Map options</a> like <code>-Dkey1=val1 -Dkey2=val2</code>, where both key and value can be strongly typed.</p>
+</div>
+<div class="paragraph">
+<p>It generates polished and easily tailored <a href="http://picocli.info/#_usage_help">usage help</a>
+and  <a href="http://picocli.info/#_version_help">version help</a>,
+using <a href="http://picocli.info/#_ansi_colors_and_styles">ANSI colors</a> where possible.
+Picocli-based command line applications can have <a href="http://picocli.info/autocomplete.html">TAB autocompletion</a>,
+interactively showing users what options and subcommands are available.
+Picocli can generate completion scripts for bash and zsh, and offers an API to easily create a <a href="https://github.com/jline/jline2">JLine</a> <code>Completer</code> for your application.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Micronaut features dedicated support for defining picocli <code>Command</code> instances. Micronaut applications built with picocli can be deployed with or without the presence of an HTTP server.</p>
+</div>
+<div class="paragraph">
+<p>Combining picocli with Micronaut makes it easy to provide a rich, well-documented command line interface for your Microservices.</p>
 </div>
 
 
@@ -119,22 +157,253 @@
 </div>
 
 
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title">Using the CLI</div>
+<div class="paragraph">
+<p>If you are creating your project using the Micronaut CLI, supply the <code>picocli</code> feature to configure Picocli in your project:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ mn create-app my-app --features picocli</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To add support for Picocli to an existing project, you should first add the picocli dependency and the Micronaut picocli configuration to your build configuration.</p>
+</div>
 <div class="paragraph">
 <p>        <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="gradle">compile <span class="hljs-string">'io.micronaut:micronaut-picocli:1.2.0.BUILD-SNAPSHOT'</span></code></pre>
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="gradle">compile <span class="hljs-string">'info.picocli:picocli'</span></code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
-    &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
+    &lt;groupId&gt;info.picocli&lt;/groupId&gt;
+    &lt;artifactId&gt;picocli&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="gradle">compile <span class="hljs-string">'io.micronaut.configuration:micronaut-picocli:1.2.0.BUILD-SNAPSHOT'</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.configuration&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-picocli&lt;/artifactId&gt;
     &lt;version&gt;1.2.0.BUILD-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
 </p>
+</div>
+<div class="sect2">
+<h3 id="_configuring_picocli">Configuring picocli</h3>
+<div class="paragraph">
+<p>Picocli does not require configuration. See other sections of the manual for configuring the services and resources to inject.</p>
+</div>
+</div>
+
+
+<h1 id="quickstart">3 Picocli Quick Start</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-picocli/edit/master/src/main/docs/guide/quickstart.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="sect2">
+<h3 id="_creating_a_picocli_command_with_command">Creating a Picocli Command with @Command</h3>
+<div class="paragraph">
+<p>This section will show a quick example that provides a command line interface to a HTTP client that communicates with the GitHub API.</p>
+</div>
+<div class="paragraph">
+<p>When creating this example project with the Micronaut CLI, use the <code>create-cli-app</code> command, and add the <code>--features=http-client</code> flag:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ mn create-cli-app example.git-star --features http-client</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will add the <code>io.micronaut:micronaut-http-client</code> dependency to the build. You can also manually add to your build:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="gradle">compile <span class="hljs-string">'io.micronaut:micronaut-http-client'</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-http-client&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="sect3">
+<h4 id="_an_example_http_client">An Example HTTP Client</h4>
+<div class="paragraph">
+<p>To create a picocli <code>Command</code> you create a class with fields annotated with <code>@Option</code> or <code>@Parameters</code> to capture the values of the command line options or positional parameters, respectively.</p>
+</div>
+<div class="paragraph">
+<p>For example the following is a picocli <code>@Command</code> that wraps around the GitHub API:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example picocli command with injected HTTP client</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package example;
+
+import io.micronaut.configuration.picocli.PicocliRunner;
+import io.micronaut.context.ApplicationContext;
+import io.micronaut.http.client.annotation.*;
+import io.micronaut.http.client.*;
+import io.reactivex.*;
+
+import static io.micronaut.http.HttpRequest.*;
+
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
+
+import java.util.*;
+import javax.inject.Inject;
+
+@Command(name = "git-star", header = {
+        "@|green       _ _      _             |@", <i class="conum" data-value="1"></i><b>(1)</b>
+        "@|green  __ _(_) |_ __| |_ __ _ _ _  |@",
+        "@|green / _` | |  _(_-&lt;  _/ _` | '_| |@",
+        "@|green \\__, |_|\\__/__/\\__\\__,_|_|   |@",
+        "@|green |___/                        |@"},
+        description = "Shows GitHub stars for a project",
+        mixinStandardHelpOptions = true, version = "git-star 0.1") <i class="conum" data-value="2"></i><b>(2)</b>
+public class GitStarCommand implements Runnable {
+
+    @Client("https://api.github.com")
+    @Inject RxHttpClient client; <i class="conum" data-value="3"></i><b>(3)</b>
+
+    @Option(names = {"-v", "--verbose"}, description = "Shows some project details")
+    boolean verbose;
+
+    @Parameters(description = {"One or more GitHub slugs (comma separated) to show stargazers for.",
+                "  Default: ${DEFAULT-VALUE}"}, split = ",", paramLabel = "&lt;owner/repo&gt;") <i class="conum" data-value="4"></i><b>(4)</b>
+    List&lt;String&gt; githubSlugs = Arrays.asList("micronaut-projects/micronaut-core", "remkop/picocli");
+
+    public static void main(String[] args) throws Exception {
+        PicocliRunner.run(GitStarCommand.class, args);
+    }
+
+    public void run() { <i class="conum" data-value="5"></i><b>(5)</b>
+        for (String slug : githubSlugs) {
+            Map m = client.retrieve(
+                    GET("/repos/" + slug).header("User-Agent", "remkop-picocli"),
+                    Map.class).blockingFirst();
+            System.out.printf("%s has %s stars%n", slug, m.get("watchers"));
+
+            if (verbose) {
+                String msg = "Description: %s%nLicense: %s%nForks: %s%nOpen issues: %s%n%n";
+                System.out.printf(msg, m.get("description"),
+                                ((Map) m.get("license")).get("name"),
+                                m.get("forks"), m.get("open_issues"));
+            }
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Headers, footers and descriptions can be multi-line. You can embed ANSI styled text anywhere with the <code>@|STYLE1[,STYLE2]…​ text|@</code> <a href="https://picocli.info/#_usage_help_with_styles_and_colors">markup notation</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Add version information to display when the user requests this with <code>--version</code>. This can also be supplied dynamically, e.g. from the <a href="https://github.com/remkop/picocli/blob/master/examples/src/main/java/picocli/examples/VersionProviderDemo2.java">manifest file</a> or a build-generated version <a href="https://github.com/remkop/picocli/blob/master/examples/src/main/java/picocli/examples/VersionProviderDemo1.java">properties file</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Inject a HTTP client. In this case, hard-coded to the GitHub API endpoint.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>A positional parameter that lets the user select one or more GitHub projects</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>The business logic: display information for each project the user requested.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The usage help message generated for this command looks like this:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../img/picocli-example.png" alt="picocli example"></span></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_subcommands">Subcommands</h3>
+<div class="paragraph">
+<p>If your service has a lot of functionality, a common pattern is to have subcommands to control different areas of the service.
+To allow Micronaut to inject services and resources correctly into the subcommands,
+make sure to obtain subcommand instances from the <code>ApplicationContext</code>, instead of instantiating them directly.</p>
+</div>
+<div class="paragraph">
+<p>The easiest way to do this is to declare the subcommands on the top-level command, like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">A top-level command with subcommands</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Command(name = "topcmd", subcommands = {SubCmd1.class, SubCmd2.class}) <i class="conum" data-value="1"></i><b>(1)</b>
+class TopCommand implements Callable&lt;Object&gt; { <i class="conum" data-value="2"></i><b>(2)</b>
+
+    public static void main(String[] args) throws Exception {
+        PicocliRunner.call(TopCommand.class, args); <i class="conum" data-value="3"></i><b>(3)</b>
+    }
+    //...
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The top-level command has two subcommands, <code>SubCmd1</code> and <code>SubCmd2</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Let all commands in the hierarchy implement <code>Runnable</code> or <code>Callable</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Start the application with <code>PicocliRunner</code>. This creates an <code>ApplicationContext</code> that instantiates the commands and performs the dependency injection.</td>
+</tr>
+</table>
+</div>
 </div>
 
     </div>
