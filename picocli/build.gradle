@@ -17,10 +17,10 @@ dependencyManagement {
 }
 dependencies {
     annotationProcessor 'io.micronaut:micronaut-inject-java'
-    compile 'io.micronaut:micronaut-inject'
-    compile 'io.micronaut:micronaut-runtime'
+    testAnnotationProcessor 'io.micronaut:micronaut-inject-java'
+    compile "io.micronaut:micronaut-inject:$micronautVersion"
+    compile "io.micronaut:micronaut-runtime:$micronautVersion"
     compileOnly 'io.micronaut:micronaut-graal'
-    compile "info.picocli:picocli:$picocliVersion"
-    testCompile 'io.micronaut:micronaut-inject-java'
+    compile "info.picocli:picocli:3.5.2"    
     testCompile 'junit:junit:4.7'
 }
