@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script src="/cdn-cgi/apps/head/3cOPSgo5Omz84ycX7CvigfX4cpw.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=UA-82213539-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-82213539-2');
+    </script>
+    <title>1 Introduction 1.2.0</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <div class="navTitle">
+        
+        Micronaut Picocli Configuration
+    </div>
+    <div class="navLinks">
+        <ul>
+            <li>
+                <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                    <a href="../guide/index.html" class="button">Table of contents</a>
+
+                    <div id="nav-summary-childs" style="display:none;">
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/setup.html"><strong>2</strong><span>Setting up Picocli</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/generate.html"><strong>3</strong><span>Generating a Picocli Project</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/quickstart.html"><strong>4</strong><span>Picocli Quick Start</span></a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </li>
+            <li class="separator selected">
+                <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+            </li>
+        </ul>
+    </div>
+
+
+</div>
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../guide/setup.html"><strong>2</strong><span>Setting up Picocli</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>1 Introduction</h1>
+
+                    <p><strong>Version:</strong> 1.2.0</p>
+                </div>
+
+                
+
+                
+
+<h1 id="introduction">1 Introduction</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-picocli/edit/master/src/main/docs/guide/introduction.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p><a href="https://github.com/remkop/picocli">Picocli</a> is a command line parser that supports usage help with ANSI colors, autocomplete and nested subcommands. It has an annotations API to create command line applications with almost no code, and a programmatic API for dynamic uses like creating Domain Specific Languages.</p>
+</div>
+<div class="paragraph">
+<p>From the project Readme page:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>How it works: annotate your class and picocli initializes it from the command line arguments,
+converting the input to strongly typed data. Supports git-like <a href="http://picocli.info/#_subcommands">subcommands</a>
+(and nested <a href="http://picocli.info/#_nested_sub_subcommands">sub-subcommands</a>),
+any option prefix style, POSIX-style <a href="http://picocli.info/#_short_options">grouped short options</a>,
+<a href="http://picocli.info/#_interactive_password_options">password options</a>,
+custom <a href="http://picocli.info/#_custom_type_converters">type converters</a> and more.
+Parser <a href="http://picocli.info/#_tracing">tracing</a> facilitates troubleshooting.</p>
+</div>
+<div class="paragraph">
+<p>It distinguishes between <a href="http://picocli.info/#_options">named options</a> and
+<a href="http://picocli.info/#_positional_parameters">positional parameters</a> and allows both to be
+<a href="http://picocli.info/#_strongly_typed_everything">strongly typed</a>.
+<a href="http://picocli.info/#_multiple_values">Multi-valued fields</a> can specify
+an exact number of parameters or a <a href="http://picocli.info/#_arity">range</a> (e.g., <code>0..*</code>, <code>1..2</code>).
+Supports <a href="http://picocli.info/#_maps">Map options</a> like <code>-Dkey1=val1 -Dkey2=val2</code>, where both key and value can be strongly typed.</p>
+</div>
+<div class="paragraph">
+<p>It generates polished and easily tailored <a href="http://picocli.info/#_usage_help">usage help</a>
+and  <a href="http://picocli.info/#_version_help">version help</a>,
+using <a href="http://picocli.info/#_ansi_colors_and_styles">ANSI colors</a> where possible.
+Picocli-based command line applications can have <a href="http://picocli.info/autocomplete.html">TAB autocompletion</a>,
+interactively showing users what options and subcommands are available.
+Picocli can generate completion scripts for bash and zsh, and offers an API to easily create a <a href="https://github.com/jline/jline2">JLine</a> <code>Completer</code> for your application.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Micronaut features dedicated support for defining picocli <code>Command</code> instances. Micronaut applications built with picocli can be deployed with or without the presence of an HTTP server.</p>
+</div>
+<div class="paragraph">
+<p>Combining picocli with Micronaut makes it easy to provide a rich, well-documented command line interface for your Microservices.</p>
+</div>
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item next-right"><a href="../guide/setup.html"><strong>2</strong><span>Setting up Picocli</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>
