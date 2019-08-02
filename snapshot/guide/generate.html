@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script src="/cdn-cgi/apps/head/3cOPSgo5Omz84ycX7CvigfX4cpw.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=UA-82213539-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-82213539-2');
+    </script>
+    <title>3 Generating a Picocli Project 1.2.0.BUILD-SNAPSHOT</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <div class="navTitle">
+        
+        Micronaut Picocli Configuration
+    </div>
+    <div class="navLinks">
+        <ul>
+            <li>
+                <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                    <a href="../guide/index.html" class="button">Table of contents</a>
+
+                    <div id="nav-summary-childs" style="display:none;">
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/setup.html"><strong>2</strong><span>Setting up Picocli</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/generate.html"><strong>3</strong><span>Generating a Picocli Project</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../guide/quickstart.html"><strong>4</strong><span>Picocli Quick Start</span></a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </li>
+            <li class="separator selected">
+                <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+            </li>
+        </ul>
+    </div>
+
+
+</div>
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../guide/setup.html">&lt;&lt; <strong>2</strong><span>Setting up Picocli</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../guide/quickstart.html"><strong>4</strong><span>Picocli Quick Start</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>3 Generating a Picocli Project</h1>
+
+                    <p><strong>Version:</strong> 1.2.0.BUILD-SNAPSHOT</p>
+                </div>
+
+                
+
+                
+
+<h1 id="generate">3 Generating a Picocli Project</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-picocli/edit/master/src/main/docs/guide/generate.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To create a project with picocli support using the Micronaut CLI, use the <code>create-cli-app</code> command.
+This will add the dependencies for the <code>picocli</code> feature, and set the profile of the generated project to <code>cli</code>, so the <code>create-command</code> command is available to generate additional commands.</p>
+</div>
+<div class="paragraph">
+<p>The main class of the project is set to the <code>*Command</code> class (based on the project name - e.g., <code>hello-world</code> will generate <code>HelloWorldCommand</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ mn create-cli-app my-cli-app</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The generated command looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">my.cli.app.MyCliAppCommand.java generated by <code>create-cli-app</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package my.cli.app;
+
+import io.micronaut.configuration.picocli.PicocliRunner;
+import io.micronaut.context.ApplicationContext;
+
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
+
+@Command(name = "my-cli-app", description = "...",
+        mixinStandardHelpOptions = true) <i class="conum" data-value="1"></i><b>(1)</b>
+public class MyCliAppCommand implements Runnable { <i class="conum" data-value="2"></i><b>(2)</b>
+
+    @Option(names = {"-v", "--verbose"}, description = "...") <i class="conum" data-value="3"></i><b>(3)</b>
+    boolean verbose;
+
+    public static void main(String[] args) throws Exception {
+        PicocliRunner.run(MyCliAppCommand.class, args); <i class="conum" data-value="4"></i><b>(4)</b>
+    }
+
+    public void run() { <i class="conum" data-value="5"></i><b>(5)</b>
+        // business logic here
+        if (verbose) {
+            System.out.println("Hi!");
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The picocli <a href="https://picocli.info/apidocs/picocli/CommandLine.Command.html">@Command</a> annotation designates this class as a command. The <code>mixinStandardHelpOptions</code> attribute adds <code>--help</code> and <code>--version</code> options to it.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>By implementing <code>Runnable</code> or <code>Callable</code> your application can be executed in a single line (&lt;4&gt;) and picocli takes care of handling invalid input and requests for usage help (<code>&lt;cmd&gt; --help</code>) or version information (<code>&lt;cmd&gt; --version</code>).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>An example option. Options can have any name and be of <a href="https://picocli.info/#_strongly_typed_everything">any type</a>. The generated code contains this example boolean flag option that lets the user request more verbose output.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td><code>PicocliRunner</code> lets picocli-based applications leverage the Micronaut DI container. <code>PicocliRunner.run</code> first creates an instance of this command with all services and resources injected, then parses the command line, while taking care of handling invalid input and requests for usage help or version information, and finally invokes the <code>run</code> method.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Put the business logic of the application in the <code>run</code> or <code>call</code> method.</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_running_the_application">Running the Application</h3>
+<div class="paragraph">
+<p>Now you can build the project and start the application. The build will create a <code>${project-name}-all.jar</code> with all dependencies in <code>build/libs</code>.
+Running this jar from Java will run the generated <code>MyCliAppCommand</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ java -jar build/libs/my-cli-app-0.1-all.jar -v</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_picocli_feature">Picocli Feature</h3>
+<div class="paragraph">
+<p>Alternatively, to create a project with picocli support using the Micronaut CLI, supply the <code>picocli</code> feature to the <code>features</code> flag.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ mn create-app my-picocli-app --features picocli</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will create a project with the <code>service</code> profile that has the minimum necessary configuration for picocli.</p>
+</div>
+<div class="paragraph">
+<p>Note that no command is generated and the main class of the project is set to the default <code>Application</code> class.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cli_profile">Cli Profile</h3>
+<div class="paragraph">
+<p>It is also possible to create a project with the <code>create-app</code> command and the <code>--profile=cli</code> flag.
+This will create a Micronaut app with picocli support, without an HTTP server (although you can add one if you desire).
+The <code>cli</code> profile provides a command for generating picocli commands and subcommands.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ mn create-app example --profile cli</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that the main class of the project is set to the default <code>Application</code> class.</p>
+</div>
+<div class="paragraph">
+<p>If you want a picocli command to be the main class of this application, you need to first generate a command with <code>create-command</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ cd example
+$ ../mn
+mn&gt; create-command example.my-command
+| Rendered template Command.java to destination src/main/java/example/MyCommand.java
+| Rendered template CommandTest.java to destination src/test/java/example/MyCommandTest.java</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then open the <code>gradle.build</code> file, and change the <code>mainClassName</code> line to the fully qualified class name of the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>mainClassName = "example.MyCommand"</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <code>create-cli-app</code> command is more convenient, since it generates a project that includes a command from the beginning and sets the main class to this command.
+</td>
+</tr>
+</table>
+</div>
+</div>
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../guide/setup.html">&lt;&lt; <strong>2</strong><span>Setting up Picocli</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../guide/quickstart.html"><strong>4</strong><span>Picocli Quick Start</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>
