@@ -18,9 +18,11 @@ package io.micronaut.configuration.picocli;
 import io.micronaut.context.env.Environment;
 import io.micronaut.context.*;
 import io.micronaut.context.exceptions.*;
+import picocli.CommandLine;
 import picocli.CommandLine.IFactory;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * An {@link ApplicationContext}-based implementation of the picocli {@code IFactory} interface.
@@ -37,6 +39,7 @@ import java.util.Objects;
  */
 public class MicronautFactory implements IFactory, AutoCloseable {
     private final ApplicationContext ctx;
+    private final IFactory fallbackFactory = CommandLine.defaultFactory();
 
     /**
      * Constructs a {@code MicronautFactory} with the result of calling
@@ -68,7 +71,7 @@ public class MicronautFactory implements IFactory, AutoCloseable {
      */
     @Override
     public <K> K create(Class<K> cls) throws Exception {
-        return ctx.findOrInstantiateBean(cls).orElseThrow(() -> new NoSuchBeanException(cls));
+        return ctx.findOrInstantiateBean(cls).orElse(fallbackFactory.create(cls));
     }
 
     /**
