@@ -138,4 +138,68 @@ public class PicocliRunner {
     public static <R extends Runnable> void run(Class<R> cls, ApplicationContext ctx, String... args) {
         CommandLine.run(cls, new MicronautFactory(ctx), args);
     }
+    
+    /**
+     * Instantiates a new {@link ApplicationContext} for the {@link Environment#CLI} environment,
+     * obtains an instance of the specified {@code Callable} or {@code Runnable} command
+     * class from the context, injecting any beans as required,
+     * then parses the specified command line arguments, populating fields and methods annotated
+     * with picocli {@link Option @Option} and {@link Parameters @Parameters}
+     * annotations, and finally {@link CommandLine#execute(String...) executes} the command
+     * and returns the resulting exit code.
+     * <p>
+     * The {@code ApplicationContext} is {@linkplain ApplicationContext#close() closed} before this method returns.
+     * </p><p>
+     * This is equivalent to:
+     * </p>
+     * <pre>{@code
+     * try (ApplicationContext context = ApplicationContext.build(clazz, Environment.CLI).start()) {
+     *     return new CommandLine(clazz, new MicronautFactory(context)).execute(args);
+     * }
+     * }</pre>
+     * <p>
+     * Applications that need to customize picocli behavior by calling one of the setter
+     * methods on the {@code CommandLine} instance should use code like the above instead of this method.
+     * For example:
+     * </p>
+     * <pre>{@code
+     * // example of customizing picocli parser before invoking a command
+     * try (ApplicationContext context = ApplicationContext.build(clazz, Environment.CLI).start()) {
+     *     return new CommandLine(clazz, new MicronautFactory(context)).
+     *          setUsageHelpAutoWidth(true).
+     *          setCaseInsensitiveEnumValuesAllowed(true).
+     *          execute(args);
+     * }
+     * }</pre>
+     * @param clazz the Runnable or Callable command class
+     * @param args the command line arguments
+     * @return the exit code returned by {@link CommandLine#execute(String...)}
+     */
+    public static int execute(Class<?> clazz, String... args) {
+        try (ApplicationContext context = ApplicationContext.build(clazz, Environment.CLI).start()) {
+            return execute(clazz, context, args);
+        }
+    }
+
+    /**
+     * Obtains an instance of the specified {@code Callable} or {@code Runnable} command class
+     * from the specified context, injecting any beans from the specified context as required,
+     * then parses the specified command line arguments, populating fields and methods annotated
+     * with picocli {@link Option @Option} and {@link Parameters @Parameters}
+     * annotations, and finally {@link CommandLine#execute(String...) executes} the command
+     * and returns the resulting exit code.
+     * <p>
+     * The caller is responsible for {@linkplain ApplicationContext#close() closing} the context.
+     * </p><p>
+     * This is equivalent to:
+     * </p>
+     * <pre>{@code return new CommandLine(clazz, new MicronautFactory(context)).execute(args);}</pre>
+     * @param clazz the Runnable or Callable command class
+     * @param context the ApplicationContext that injects dependencies into the command
+     * @param args the command line arguments
+     * @return the exit code returned by {@link CommandLine#execute(String...)}
+     */
+    private static int execute(Class<?> clazz, ApplicationContext context, String... args) {
+        return new CommandLine(clazz, new MicronautFactory(context)).execute(args);
+    }
 }
