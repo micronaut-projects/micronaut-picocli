@@ -176,8 +176,9 @@ public class GitStarCommand implements Runnable {
                 "  Default: ${DEFAULT-VALUE}"}, split = ",", paramLabel = "&lt;owner/repo&gt;") <i class="conum" data-value="4"></i><b>(4)</b>
     List&lt;String&gt; githubSlugs = Arrays.asList("micronaut-projects/micronaut-core", "remkop/picocli");
 
-    public static void main(String[] args) throws Exception {
-        PicocliRunner.run(GitStarCommand.class, args);
+    public static void main(String[] args) {
+        int exitCode = PicocliRunner.execute(GitStarCommand.class, args);
+        System.exit(exitCode);
     }
 
     public void run() { <i class="conum" data-value="5"></i><b>(5)</b>
@@ -246,8 +247,8 @@ make sure to obtain subcommand instances from the <code>ApplicationContext</code
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Command(name = "topcmd", subcommands = {SubCmd1.class, SubCmd2.class}) <i class="conum" data-value="1"></i><b>(1)</b>
 class TopCommand implements Callable&lt;Object&gt; { <i class="conum" data-value="2"></i><b>(2)</b>
 
-    public static void main(String[] args) throws Exception {
-        PicocliRunner.call(TopCommand.class, args); <i class="conum" data-value="3"></i><b>(3)</b>
+    public static void main(String[] args) {
+        PicocliRunner.execute(TopCommand.class, args); <i class="conum" data-value="3"></i><b>(3)</b>
     }
     //...
 }</code></pre>
@@ -266,6 +267,77 @@ class TopCommand implements Callable&lt;Object&gt; { <i class="conum" data-value
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
 <td>Start the application with <code>PicocliRunner</code>. This creates an <code>ApplicationContext</code> that instantiates the commands and performs the dependency injection.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_customizing_picocli">Customizing Picocli</h3>
+<div class="paragraph">
+<p>Occasionally you may want to set parser options or otherwise customize picocli behavior.
+This can easily be done via the setter methods on the picocli <code>CommandLine</code> object, but the <code>PicocliRunner</code> does not expose that object.</p>
+</div>
+<div class="paragraph">
+<p>In such cases, you may want to invoke picocli directly instead of using the <code>PicocliRunner</code>.
+The code below demonstrates how to do this:</p>
+</div>
+<div class="listingblock">
+<div class="title">Example of customizing the picocli parser before invoking a command</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import io.micronaut.configuration.picocli.MicronautFactory;
+import io.micronaut.context.ApplicationContext;
+import io.micronaut.context.env.Environment;
+import picocli.CommandLine;
+import picocli.CommandLine.*;
+import java.util.concurrent.Callable;
+
+@Command(name = "configuration-example")
+class ConfigDemo implements Callable&lt;Object&gt; {
+
+    private static int execute(Class&lt;?&gt; clazz, String[] args) {
+        try (ApplicationContext context = ApplicationContext.build(
+                clazz, Environment.CLI).start()) { <i class="conum" data-value="1"></i><b>(1)</b>
+
+            return new CommandLine(clazz, new MicronautFactory(context)). <i class="conum" data-value="2"></i><b>(2)</b>
+                 setCaseInsensitiveEnumValuesAllowed(true). <i class="conum" data-value="3"></i><b>(3)</b>
+                 setUsageHelpAutoWidth(true). <i class="conum" data-value="4"></i><b>(4)</b>
+                 execute(args); <i class="conum" data-value="5"></i><b>(5)</b>
+        }
+    }
+
+    public static void main(String[] args) {
+        int exitCode = execute(ConfigDemo.class, args);
+        System.exit(exitCode); <i class="conum" data-value="6"></i><b>(6)</b>
+    }
+    // ...
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Instantiate a new <code>ApplicationContext</code> for the <code>CLI</code> environment, in a try-with-resources statements, so that the context is automatically closed before the method returns.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Pass a <code>MicronautFactory</code> with the application context to the picocli <code>CommandLine</code> constructor. This enables dependencies to be injected into the command and subcommands.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>An example of configuring the picocli command line parser.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>An example of configuring the picocli usage help message.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Execute the command and return the result (this closes the application context).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Optionally call <code>System.exit</code> with the returned exit code.</td>
 </tr>
 </table>
 </div>
