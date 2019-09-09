@@ -71,7 +71,8 @@ public class MicronautFactory implements IFactory, AutoCloseable {
      */
     @Override
     public <K> K create(Class<K> cls) throws Exception {
-        return ctx.findOrInstantiateBean(cls).orElse(fallbackFactory.create(cls));
+        Optional<K> bean = ctx.findOrInstantiateBean(cls);
+        return bean.isPresent() ? bean.get() : fallbackFactory.create(cls);
     }
 
     /**
