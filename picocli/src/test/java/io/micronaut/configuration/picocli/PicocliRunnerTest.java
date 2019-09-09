@@ -13,7 +13,6 @@ import java.io.PrintStream;
 import java.util.concurrent.Callable;
 
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
 public class PicocliRunnerTest {
@@ -37,11 +36,25 @@ public class PicocliRunnerTest {
         }
     }
 
+    @Singleton
+    static class AnotherService {
+        public String service() {
+            return "so-so service";
+        }
+    }
+
     @Command(name = "myRunnable", mixinStandardHelpOptions = true)
     static class MyRunnableCmd implements Runnable {
 
         @Inject
-        MyService myService;
+        AnotherService fieldInjectedService;
+
+        //@Inject: use constructor injection instead of field injection
+        MyService constructorInjectedService;
+
+        MyRunnableCmd(MyService service) {
+            constructorInjectedService = service;
+        }
 
         /** Command line option value for -v captured in static field for testing */
         @Option(names = {"-v", "--verbose"}, description = "...")
@@ -52,9 +65,9 @@ public class PicocliRunnerTest {
 
         public void run() {
             if (verbose) {
-                System.out.println("myService: " + myService);
+                System.out.println("myService: " + constructorInjectedService);
             }
-            serviceResult = myService.service();
+            serviceResult = constructorInjectedService.service();
         }
     }
 
