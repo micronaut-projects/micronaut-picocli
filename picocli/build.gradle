@@ -22,5 +22,5 @@ dependencies {
     compile "io.micronaut:micronaut-runtime:$micronautVersion"
     compileOnly 'io.micronaut:micronaut-graal'
     compile "info.picocli:picocli:4.0.4"
-    testCompile 'junit:junit:4.7'
+    testCompile 'junit:junit:4.13'
 }
