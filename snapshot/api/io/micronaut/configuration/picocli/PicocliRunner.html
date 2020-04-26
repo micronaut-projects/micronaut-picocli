@@ -259,8 +259,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>call</h4>
 <pre>public static&nbsp;&lt;C extends java.util.concurrent.Callable&lt;T&gt;,T&gt;&nbsp;T&nbsp;call(java.lang.Class&lt;C&gt;&nbsp;cls,
-                                                                    java.lang.String...&nbsp;args)
-                                                             throws java.lang.Exception</pre>
+                                                                    java.lang.String...&nbsp;args)</pre>
 <div class="block">Instantiates a new <code>ApplicationContext</code> for the <code>Environment.CLI</code> environment,
  obtains an instance of the specified <code>Callable</code> command class from the context,
  injecting any beans as required,
@@ -280,11 +279,6 @@ extends java.lang.Object</pre>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd><code>null</code> if an error occurred while parsing the command line options,
       or if help was requested and printed. Otherwise returns the result of calling the Callable</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>picocli.CommandLine.InitializationException</code> - if the specified command object does not have
-          a <code>CommandLine.Command</code>, <code>CommandLine.Option</code> or <code>CommandLine.Parameters</code> annotation</dd>
-<dd><code>picocli.CommandLine.ExecutionException</code> - if the Callable throws an exception</dd>
-<dd><code>java.lang.Exception</code> - if the ApplicationContext could not be closed</dd>
 </dl>
 </li>
 </ul>
@@ -330,8 +324,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>run</h4>
 <pre>public static&nbsp;&lt;R extends java.lang.Runnable&gt;&nbsp;void&nbsp;run(java.lang.Class&lt;R&gt;&nbsp;cls,
-                                                      java.lang.String...&nbsp;args)
-                                               throws java.lang.Exception</pre>
+                                                      java.lang.String...&nbsp;args)</pre>
 <div class="block">Instantiates a new <code>ApplicationContext</code> for the <code>Environment.CLI</code> environment,
  obtains an instance of the specified <code>Runnable</code> command class from the context,
  injecting any beans as required,
@@ -347,11 +340,6 @@ extends java.lang.Object</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>cls</code> - the Runnable command class</dd>
 <dd><code>args</code> - the command line arguments</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>picocli.CommandLine.InitializationException</code> - if the specified command object does not have
-          a <code>CommandLine.Command</code>, <code>CommandLine.Option</code> or <code>CommandLine.Parameters</code> annotation</dd>
-<dd><code>picocli.CommandLine.ExecutionException</code> - if the Runnable throws an exception</dd>
-<dd><code>java.lang.Exception</code> - if the ApplicationContext could not be closed</dd>
 </dl>
 </li>
 </ul>
