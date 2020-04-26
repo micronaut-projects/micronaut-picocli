@@ -1,6 +1,5 @@
 buildscript {
     repositories {
-        mavenLocal()
         maven { url "https://repo.grails.org/grails/core" }
     }
     dependencies {
@@ -20,8 +19,6 @@ plugins {
 }
 
 repositories {
-    // mavenLocal()
-    mavenCentral()
     maven { url "https://repo.grails.org/grails/core" }
 }
 
@@ -40,7 +37,7 @@ ext {
 subprojects { Project subproject ->
 
     version project.projectVersion
-    group "io.micronaut.configuration"
+    group "io.micronaut.picocli"
     ext {
         isConfiguration = subproject.projectDir.parentFile.name == 'configurations'
         isBuildSnapshot = version.toString().endsWith("-SNAPSHOT")
@@ -49,24 +46,15 @@ subprojects { Project subproject ->
 
     repositories {
         maven { url "https://repo.grails.org/grails/core" }
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
 
     apply plugin:"groovy"
-    apply plugin:"java"
-    apply plugin: "io.spring.dependency-management"
+    apply plugin:"java-library"
     apply plugin: "io.spring.nohttp"
-
-    dependencyManagement {
-        imports {
-            mavenBom "io.micronaut:micronaut-bom:$micronautVersion"
-        }
-    }
-
 
     sourceCompatibility = '1.8'
     targetCompatibility = '1.8'
-    apply from:"https://raw.githubusercontent.com/micronaut-projects/micronaut-build/f7ecafbd37dae3ab0d2598adf6af31aef5e20b1c/publishing.gradle"
+    apply from:"https://raw.githubusercontent.com/micronaut-projects/micronaut-build/v${micronautBuildVersion}/publishing.gradle"
 
 
     jar {
@@ -109,18 +97,21 @@ subprojects { Project subproject ->
     dependencies {
         documentation "org.codehaus.groovy:groovy-templates:$groovyVersion"
         documentation "org.codehaus.groovy:groovy-dateutil:$groovyVersion"
+        annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+        testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+        implementation platform("io.micronaut:micronaut-bom:$micronautVersion")        
 
-        testCompile "cglib:cglib-nodep:3.3.0"
-        testCompile "org.objenesis:objenesis:3.1"
+        testImplementation "cglib:cglib-nodep:3.3.0"
+        testImplementation "org.objenesis:objenesis:3.1"
 
-        testCompile("org.spockframework:spock-core:${spockVersion}") {
+        testImplementation("org.spockframework:spock-core:${spockVersion}") {
             exclude module:'groovy-all'
         }
-        testCompile "cglib:cglib-nodep:3.3.0"
-        testCompile "org.objenesis:objenesis:3.1"
+        testImplementation "cglib:cglib-nodep:3.3.0"
+        testImplementation "org.objenesis:objenesis:3.1"
 
-        testRuntime "ch.qos.logback:logback-classic:1.2.3"
-        testCompile "org.codehaus.groovy:groovy-test:$groovyVersion"
+        testRuntimeOnly "ch.qos.logback:logback-classic:1.2.3"
+        testImplementation "org.codehaus.groovy:groovy-test:$groovyVersion"
     }
 
     groovydoc {
@@ -132,8 +123,8 @@ subprojects { Project subproject ->
     apply plugin: 'checkstyle'
 
     checkstyle {
-        toolVersion = 8.10
-        configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+        toolVersion = 8.16
+        configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
 
         // Per submodule
         maxErrors = 1
@@ -141,11 +132,10 @@ subprojects { Project subproject ->
 
         showViolations = true
     }
-
     checkstyleTest.enabled = false
 }
 
-apply from:"https://raw.githubusercontent.com/micronaut-projects/micronaut-docs/v1.0.0.M4/gradle/docs.gradle"
+apply from:"https://raw.githubusercontent.com/micronaut-projects/micronaut-docs/v${micronautDocsVersion}/gradle/docs.gradle"
 
 allprojects {
     apply plugin: 'idea'

@@ -20,7 +20,7 @@ import io.micronaut.context.*;
 import io.micronaut.context.exceptions.*;
 import picocli.CommandLine;
 import picocli.CommandLine.IFactory;
-
+import io.micronaut.core.annotation.TypeHint;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -37,6 +37,10 @@ import java.util.Optional;
  * @author Remko Popma
  * @since 1.0
  */
+@TypeHint(typeNames = {
+    "picocli.CommandLine$AutoHelpMixin",
+    "picocli.CommandLine$Model$CommandSpec"
+}, accessType = {TypeHint.AccessType.ALL_DECLARED_CONSTRUCTORS, TypeHint.AccessType.ALL_DECLARED_FIELDS})
 public class MicronautFactory implements IFactory, AutoCloseable {
     private final ApplicationContext ctx;
     private final IFactory fallbackFactory = CommandLine.defaultFactory();
