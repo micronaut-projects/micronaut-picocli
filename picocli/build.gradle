@@ -7,6 +7,6 @@ dependencies {
     testAnnotationProcessor 'io.micronaut:micronaut-inject-java'
     api "io.micronaut:micronaut-inject:$micronautVersion"
     api "io.micronaut:micronaut-runtime:$micronautVersion"    
-    api "info.picocli:picocli:4.2.0"
+    api "info.picocli:picocli:4.3.0"
     testCompile 'junit:junit:4.13'
 }
