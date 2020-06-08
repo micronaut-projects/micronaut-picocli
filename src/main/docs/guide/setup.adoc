@@ -13,7 +13,7 @@ To add support for Picocli to an existing project, you should first add the pico
 
 dependency:info.picocli:picocli[]
 
-dependency:io.micronaut.configuration:micronaut-picocli[version="{version}"]
+dependency:io.micronaut.picocli:micronaut-picocli[version="{version}"]
 
 === Configuring picocli
 

@@ -30,3 +30,14 @@ ____
 Micronaut features dedicated support for defining picocli `Command` instances. Micronaut applications built with picocli can be deployed with or without the presence of an HTTP server.
 
 Combining picocli with Micronaut makes it easy to provide a rich, well-documented command line interface for your Microservices.
+
+=== Release History
+
+==== 2.0.0
+
+* Micronaut 1.3.4 minimum version
+* Changed Maven group to `io.micronaut.picocli`
+
+==== 1.0.0
+
+* Initial Release
