@@ -20,7 +20,6 @@ import io.micronaut.context.*;
 import io.micronaut.context.exceptions.*;
 import picocli.CommandLine;
 import picocli.CommandLine.IFactory;
-
 import java.util.Objects;
 import java.util.Optional;
 
@@ -78,10 +77,9 @@ public class MicronautFactory implements IFactory, AutoCloseable {
     /**
      * Closes the underlying {@code ApplicationContext}.
      *
-     * @throws Exception if the underlying application context could not be closed
      */
     @Override
-    public void close() throws Exception {
+    public void close() {
         ctx.close();
     }
 }

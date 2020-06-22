@@ -16,6 +16,8 @@
 package io.micronaut.configuration.picocli;
 
 import io.micronaut.context.ApplicationContext;
+import io.micronaut.context.ApplicationContextBuilder;
+import io.micronaut.context.env.CommandLinePropertySource;
 import io.micronaut.context.env.Environment;
 import io.micronaut.core.annotation.TypeHint;
 import picocli.CommandLine;
@@ -37,8 +39,8 @@ import java.util.concurrent.Callable;
  */
 @TypeHint(
     value = {System.class, Executable.class, Parameter.class, ResourceBundle.class, Path.class, Paths.class},
-    typeNames = "picocli.CommandLine$AutoHelpMixin",
-    accessType = {TypeHint.AccessType.ALL_DECLARED_FIELDS, TypeHint.AccessType.ALL_PUBLIC_METHODS}
+    typeNames = {"picocli.CommandLine$AutoHelpMixin", "picocli.CommandLine$Model$CommandSpec"},
+    accessType = {TypeHint.AccessType.ALL_DECLARED_FIELDS, TypeHint.AccessType.ALL_PUBLIC_METHODS, TypeHint.AccessType.ALL_DECLARED_CONSTRUCTORS}
 )
 public class PicocliRunner {
     /**
@@ -57,12 +59,8 @@ public class PicocliRunner {
      * @param <T> The callable return type
      * @return {@code null} if an error occurred while parsing the command line options,
      *      or if help was requested and printed. Otherwise returns the result of calling the Callable
-     * @throws InitializationException if the specified command object does not have
-     *          a {@link Command}, {@link Option} or {@link Parameters} annotation
-     * @throws ExecutionException if the Callable throws an exception
-     * @throws Exception if the ApplicationContext could not be closed
      */
-    public static <C extends Callable<T>, T> T call(Class<C> cls, String... args) throws Exception {
+    public static <C extends Callable<T>, T> T call(Class<C> cls, String... args) {
         try (ApplicationContext ctx = ApplicationContext.build(cls, Environment.CLI).start()) {
             return call(cls, ctx, args);
         }
@@ -90,7 +88,9 @@ public class PicocliRunner {
      * @throws ExecutionException if the Callable throws an exception
      */
     public static <C extends Callable<T>, T> T call(Class<C> cls, ApplicationContext ctx, String... args) {
-        return CommandLine.call(cls, new MicronautFactory(ctx), args);
+        CommandLine commandLine = new CommandLine(cls, new MicronautFactory(ctx));
+        commandLine.execute(args);
+        return commandLine.getExecutionResult();
     }
 
     /**
@@ -107,13 +107,10 @@ public class PicocliRunner {
      * @param args the command line arguments
      * @param <R> The runnable type
      *
-     * @throws InitializationException if the specified command object does not have
-     *          a {@link Command}, {@link Option} or {@link Parameters} annotation
-     * @throws ExecutionException if the Runnable throws an exception
-     * @throws Exception if the ApplicationContext could not be closed
      */
-    public static <R extends Runnable> void run(Class<R> cls, String... args) throws Exception {
-        try (ApplicationContext ctx = ApplicationContext.build(cls, Environment.CLI).start()) {
+    public static <R extends Runnable> void run(Class<R> cls, String... args) {
+        ApplicationContextBuilder builder = buildApplicationContext(cls, args);
+        try (ApplicationContext ctx = builder.start()) {
             run(cls, ctx, args);
         }
     }
@@ -136,7 +133,8 @@ public class PicocliRunner {
      * @throws ExecutionException if the Runnable throws an exception
      */
     public static <R extends Runnable> void run(Class<R> cls, ApplicationContext ctx, String... args) {
-        CommandLine.run(cls, new MicronautFactory(ctx), args);
+        CommandLine commandLine = new CommandLine(cls, new MicronautFactory(ctx));
+        commandLine.execute(args);
     }
     
     /**
@@ -176,7 +174,8 @@ public class PicocliRunner {
      * @return the exit code returned by {@link CommandLine#execute(String...)}
      */
     public static int execute(Class<?> clazz, String... args) {
-        try (ApplicationContext context = ApplicationContext.build(clazz, Environment.CLI).start()) {
+        ApplicationContextBuilder builder = buildApplicationContext(clazz, args);
+        try (ApplicationContext context = builder.start()) {
             return execute(clazz, context, args);
         }
     }
@@ -202,4 +201,13 @@ public class PicocliRunner {
     private static int execute(Class<?> clazz, ApplicationContext context, String... args) {
         return new CommandLine(clazz, new MicronautFactory(context)).execute(args);
     }
+
+    private static ApplicationContextBuilder buildApplicationContext(Class<?> cls, String[] args) {
+        io.micronaut.core.cli.CommandLine commandLine = io.micronaut.core.cli.CommandLine.parse(args);
+        CommandLinePropertySource commandLinePropertySource = new CommandLinePropertySource(commandLine);
+        return ApplicationContext
+                .build(cls, Environment.CLI)
+                .propertySources(commandLinePropertySource);
+    }
+
 }

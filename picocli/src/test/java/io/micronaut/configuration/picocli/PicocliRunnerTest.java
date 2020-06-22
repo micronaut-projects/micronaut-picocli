@@ -3,6 +3,8 @@ package io.micronaut.configuration.picocli;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.micronaut.context.annotation.Property;
+import io.micronaut.context.annotation.Value;
 import org.junit.Before;
 import org.junit.Test;
 import picocli.CommandLine.Command;
@@ -52,8 +54,12 @@ public class PicocliRunnerTest {
         //@Inject: use constructor injection instead of field injection
         MyService constructorInjectedService;
 
+        @Property(name = "v", defaultValue = "false")
+        boolean injectVerbose;
+
         MyRunnableCmd(MyService service) {
             constructorInjectedService = service;
+            injectVerbose = false;
         }
 
         /** Command line option value for -v captured in static field for testing */
@@ -63,9 +69,14 @@ public class PicocliRunnerTest {
         /** Execution result captured in static field for testing */
         static String serviceResult;
 
+        static boolean wasInjectedVerbose = false;
+
         public void run() {
             if (verbose) {
                 System.out.println("myService: " + constructorInjectedService);
+            }
+            if (injectVerbose) {
+                wasInjectedVerbose = injectVerbose;
             }
             serviceResult = constructorInjectedService.service();
         }
@@ -108,6 +119,7 @@ public class PicocliRunnerTest {
 
         // verify
         assertTrue(MyRunnableCmd.verbose);
+        assertTrue(MyRunnableCmd.wasInjectedVerbose);
         assertEquals(MyRunnableCmd.serviceResult, new MyService().service());
     }
 
