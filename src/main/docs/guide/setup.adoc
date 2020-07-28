@@ -2,9 +2,9 @@
 [TIP]
 .Using the CLI
 ====
-If you are creating your project using the Micronaut CLI, supply the `picocli` feature to configure Picocli in your project:
+To create your project using the Micronaut CLI:
 ----
-$ mn create-app my-app --features picocli
+$ mn create-cli-app my-app
 ----
 ====
 
