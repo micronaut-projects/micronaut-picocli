@@ -1,5 +1,5 @@
 To create a project with picocli support using the Micronaut CLI, use the `create-cli-app` command.
-This will add the dependencies for the `picocli` feature, and set the profile of the generated project to `cli`, so the `create-command` command is available to generate additional commands.
+This will add the dependencies for the `picocli` feature, and set the `applicationType` of the generated project to `cli`, so the `create-command` command is available to generate additional commands.
 
 The main class of the project is set to the `*Command` class (based on the project name - e.g., `hello-world` will generate `HelloWorldCommand`):
 
