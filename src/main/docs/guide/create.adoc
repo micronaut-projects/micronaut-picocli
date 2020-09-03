@@ -1,0 +1,12 @@
+You can create a Micronaut command line interface application using the Micronaut CLI:
+
+.Using the CLI
+====
+----
+$ mn create-cli-app my-app
+----
+====
+
+or with https://launch.io[Micronaut Launch]
+
+image::launch.png[]
