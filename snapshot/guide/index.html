@@ -53,7 +53,9 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#quickstart"><strong>5</strong><span>Picocli Quick Start</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>6</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#subcommands"><strong>6</strong><span>Subcommands</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>7</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -94,7 +96,9 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-quickstart"><a href="#quickstart"><strong>5</strong><span>Picocli Quick Start</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>6</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-subcommands"><a href="#subcommands"><strong>6</strong><span>Subcommands</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>7</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -538,46 +542,6 @@ public class GitStarCommand implements Runnable {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_subcommands">Subcommands</h3>
-<div class="paragraph">
-<p>If your service has a lot of functionality, a common pattern is to have subcommands to control different areas of the service.
-To allow Micronaut to inject services and resources correctly into the subcommands,
-make sure to obtain subcommand instances from the <code>ApplicationContext</code>, instead of instantiating them directly.</p>
-</div>
-<div class="paragraph">
-<p>The easiest way to do this is to declare the subcommands on the top-level command, like this:</p>
-</div>
-<div class="listingblock">
-<div class="title">A top-level command with subcommands</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Command(name = "topcmd", subcommands = {SubCmd1.class, SubCmd2.class}) <i class="conum" data-value="1"></i><b>(1)</b>
-class TopCommand implements Callable&lt;Object&gt; { <i class="conum" data-value="2"></i><b>(2)</b>
-
-    public static void main(String[] args) {
-        PicocliRunner.execute(TopCommand.class, args); <i class="conum" data-value="3"></i><b>(3)</b>
-    }
-    //...
-}</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The top-level command has two subcommands, <code>SubCmd1</code> and <code>SubCmd2</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Let all commands in the hierarchy implement <code>Runnable</code> or <code>Callable</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Start the application with <code>PicocliRunner</code>. This creates an <code>ApplicationContext</code> that instantiates the commands and performs the dependency injection.</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_customizing_picocli">Customizing Picocli</h3>
 <div class="paragraph">
 <p>Occasionally you may want to set parser options or otherwise customize picocli behavior.
@@ -649,7 +613,59 @@ class ConfigDemo implements Callable&lt;Object&gt; {
 </div>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>6 Repository</h1>
+<h1 id="subcommands"><a class="anchor" href="#subcommands"></a>6 Subcommands</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-picocli/edit/master/src/main/docs/guide/subcommands.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="sect1">
+<h2 id="_subcommands">Subcommands</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If your service has a lot of functionality, a common pattern is to have subcommands to control different areas of the service.
+To allow Micronaut to inject services and resources correctly into the subcommands,
+make sure to obtain subcommand instances from the <code>ApplicationContext</code>, instead of instantiating them directly.</p>
+</div>
+<div class="paragraph">
+<p>The easiest way to do this is to declare the subcommands on the top-level command, like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">A top-level command with subcommands</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Command(name = "topcmd", subcommands = {SubCmd1.class, SubCmd2.class}) <i class="conum" data-value="1"></i><b>(1)</b>
+class TopCommand implements Callable&lt;Object&gt; { <i class="conum" data-value="2"></i><b>(2)</b>
+
+    public static void main(String[] args) {
+        PicocliRunner.execute(TopCommand.class, args); <i class="conum" data-value="3"></i><b>(3)</b>
+    }
+    //...
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The top-level command has two subcommands, <code>SubCmd1</code> and <code>SubCmd2</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Let all commands in the hierarchy implement <code>Runnable</code> or <code>Callable</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Start the application with <code>PicocliRunner</code>. This creates an <code>ApplicationContext</code> that instantiates the commands and performs the dependency injection.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+
+<h1 id="repository"><a class="anchor" href="#repository"></a>7 Repository</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-picocli/edit/master/src/main/docs/guide/repository.adoc"'>
