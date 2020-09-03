@@ -1,5 +1,5 @@
 To create a project with picocli support using the Micronaut CLI, use the `create-cli-app` command.
-This will add the dependencies for the `picocli` feature, and set the profile of the generated project to `cli`, so the `create-command` command is available to generate additional commands.
+This will add the dependencies for the `picocli` feature, and set the `applicationType` of the generated project to `cli`, so the `create-command` command is available to generate additional commands.
 
 The main class of the project is set to the `*Command` class (based on the project name - e.g., `hello-world` will generate `HelloWorldCommand`):
 
@@ -56,46 +56,3 @@ Running this jar from Java will run the generated `MyCliAppCommand`.
 ----
 $ java -jar build/libs/my-cli-app-0.1-all.jar -v
 ----
-
-
-=== Picocli Feature
-
-Alternatively, to create a project with picocli support using the Micronaut CLI, supply the `picocli` feature to the `features` flag.
-
-----
-$ mn create-app my-picocli-app --features picocli
-----
-
-This will create a project with the `service` profile that has the minimum necessary configuration for picocli.
-
-Note that no command is generated and the main class of the project is set to the default `Application` class.
-
-=== Cli Profile
-
-It is also possible to create a project with the `create-app` command and the `--profile=cli` flag.
-This will create a Micronaut app with picocli support, without an HTTP server (although you can add one if you desire).
-The `cli` profile provides a command for generating picocli commands and subcommands.
-
-----
-$ mn create-app example --profile cli
-----
-
-Note that the main class of the project is set to the default `Application` class.
-
-If you want a picocli command to be the main class of this application, you need to first generate a command with `create-command`:
-
-----
-$ cd example
-$ ../mn
-mn> create-command example.my-command
-| Rendered template Command.java to destination src/main/java/example/MyCommand.java
-| Rendered template CommandTest.java to destination src/test/java/example/MyCommandTest.java
-----
-
-
-Then open the `gradle.build` file, and change the `mainClassName` line to the fully qualified class name of the command:
-----
-mainClassName = "example.MyCommand"
-----
-
-TIP: The `create-cli-app` command is more convenient, since it generates a project that includes a command from the beginning and sets the main class to this command.

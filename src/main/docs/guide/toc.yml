@@ -1,4 +1,9 @@
 introduction: Introduction
+releaseHistory: Release History
+create: Create Micronaut Picocli app
 setup: Setting up Picocli
 generate: Generating a Picocli Project
 quickstart: Picocli Quick Start
+subcommands: Subcommands
+customize: Customizing Picocli
+repository: Repository

@@ -1,4 +1,4 @@
-=== Creating a Picocli Command with @Command
+== Creating a Picocli Command with @Command
 
 This section will show a quick example that provides a command line interface to a HTTP client that communicates with the GitHub API.
 
@@ -11,7 +11,7 @@ This will add the `io.micronaut:micronaut-http-client` dependency to the build. 
 
 dependency:micronaut-http-client[]
 
-==== An Example HTTP Client
+== An Example HTTP Client
 To create a picocli `Command` you create a class with fields annotated with `@Option` or `@Parameters` to capture the values of the command line options or positional parameters, respectively.
 
 For example the following is a picocli `@Command` that wraps around the GitHub API:
@@ -88,73 +88,3 @@ public class GitStarCommand implements Runnable {
 The usage help message generated for this command looks like this:
 
 image:picocli-example.png[]
-
-=== Subcommands
-
-If your service has a lot of functionality, a common pattern is to have subcommands to control different areas of the service.
-To allow Micronaut to inject services and resources correctly into the subcommands,
-make sure to obtain subcommand instances from the `ApplicationContext`, instead of instantiating them directly.
-
-The easiest way to do this is to declare the subcommands on the top-level command, like this:
-
-.A top-level command with subcommands
-[source,java]
-----
-@Command(name = "topcmd", subcommands = {SubCmd1.class, SubCmd2.class}) // <1>
-class TopCommand implements Callable<Object> { // <2>
-
-    public static void main(String[] args) {
-        PicocliRunner.execute(TopCommand.class, args); // <3>
-    }
-    //...
-}
-----
-<1> The top-level command has two subcommands, `SubCmd1` and `SubCmd2`.
-<2> Let all commands in the hierarchy implement `Runnable` or `Callable`.
-<3> Start the application with `PicocliRunner`. This creates an `ApplicationContext` that instantiates the commands and performs the dependency injection.
-
-=== Customizing Picocli
-
-Occasionally you may want to set parser options or otherwise customize picocli behavior.
-This can easily be done via the setter methods on the picocli `CommandLine` object, but the `PicocliRunner` does not expose that object.
-
-In such cases, you may want to invoke picocli directly instead of using the `PicocliRunner`.
-The code below demonstrates how to do this:
-
-.Example of customizing the picocli parser before invoking a command
-[source,java]
-----
-import io.micronaut.configuration.picocli.MicronautFactory;
-import io.micronaut.context.ApplicationContext;
-import io.micronaut.context.env.Environment;
-import picocli.CommandLine;
-import picocli.CommandLine.*;
-import java.util.concurrent.Callable;
-
-@Command(name = "configuration-example")
-class ConfigDemo implements Callable<Object> {
-
-    private static int execute(Class<?> clazz, String[] args) {
-        try (ApplicationContext context = ApplicationContext.build(
-                clazz, Environment.CLI).start()) { // <1>
-
-            return new CommandLine(clazz, new MicronautFactory(context)). // <2>
-                 setCaseInsensitiveEnumValuesAllowed(true). // <3>
-                 setUsageHelpAutoWidth(true). // <4>
-                 execute(args); // <5>
-        }
-    }
-
-    public static void main(String[] args) {
-        int exitCode = execute(ConfigDemo.class, args);
-        System.exit(exitCode); // <6>
-    }
-    // ...
-}
-----
-<1> Instantiate a new `ApplicationContext` for the `CLI` environment, in a try-with-resources statements, so that the context is automatically closed before the method returns.
-<2> Pass a `MicronautFactory` with the application context to the picocli `CommandLine` constructor. This enables dependencies to be injected into the command and subcommands.
-<3> An example of configuring the picocli command line parser.
-<4> An example of configuring the picocli usage help message.
-<5> Execute the command and return the result (this closes the application context).
-<6> Optionally call `System.exit` with the returned exit code.
