@@ -1,4 +1,4 @@
-=== Creating a Picocli Command with @Command
+== Creating a Picocli Command with @Command
 
 This section will show a quick example that provides a command line interface to a HTTP client that communicates with the GitHub API.
 
@@ -11,7 +11,7 @@ This will add the `io.micronaut:micronaut-http-client` dependency to the build. 
 
 dependency:micronaut-http-client[]
 
-==== An Example HTTP Client
+== An Example HTTP Client
 To create a picocli `Command` you create a class with fields annotated with `@Option` or `@Parameters` to capture the values of the command line options or positional parameters, respectively.
 
 For example the following is a picocli `@Command` that wraps around the GitHub API:
