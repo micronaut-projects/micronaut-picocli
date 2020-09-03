@@ -1,5 +1,3 @@
-== Subcommands
-
 If your service has a lot of functionality, a common pattern is to have subcommands to control different areas of the service.
 To allow Micronaut to inject services and resources correctly into the subcommands,
 make sure to obtain subcommand instances from the `ApplicationContext`, instead of instantiating them directly.
