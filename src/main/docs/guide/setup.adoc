@@ -1,13 +1,15 @@
+You can create a Micronaut command line interface application using the Micronaut CLI:
 
-[TIP]
 .Using the CLI
 ====
-To create your project using the Micronaut CLI:
 ----
 $ mn create-cli-app my-app
 ----
 ====
 
+or with https://launch.io[Micronaut Launch]
+
+image::launch.png[]
 
 To add support for Picocli to an existing project, you should first add the picocli dependency and the Micronaut picocli configuration to your build configuration.
 
