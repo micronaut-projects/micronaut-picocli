@@ -88,27 +88,3 @@ public class GitStarCommand implements Runnable {
 The usage help message generated for this command looks like this:
 
 image:picocli-example.png[]
-
-=== Subcommands
-
-If your service has a lot of functionality, a common pattern is to have subcommands to control different areas of the service.
-To allow Micronaut to inject services and resources correctly into the subcommands,
-make sure to obtain subcommand instances from the `ApplicationContext`, instead of instantiating them directly.
-
-The easiest way to do this is to declare the subcommands on the top-level command, like this:
-
-.A top-level command with subcommands
-[source,java]
-----
-@Command(name = "topcmd", subcommands = {SubCmd1.class, SubCmd2.class}) // <1>
-class TopCommand implements Callable<Object> { // <2>
-
-    public static void main(String[] args) {
-        PicocliRunner.execute(TopCommand.class, args); // <3>
-    }
-    //...
-}
-----
-<1> The top-level command has two subcommands, `SubCmd1` and `SubCmd2`.
-<2> Let all commands in the hierarchy implement `Runnable` or `Callable`.
-<3> Start the application with `PicocliRunner`. This creates an `ApplicationContext` that instantiates the commands and performs the dependency injection.
