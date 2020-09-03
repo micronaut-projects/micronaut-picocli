@@ -28,6 +28,7 @@
 <body class="body" id="docs" onload="addJsClass();" onhashchange="highlightMenu()">
 
 <div id="table-of-content-nav-link" class="desktop">
+    <a id="theme-switcher" title="Switch to dark theme" href="javascript:switchTheme(true)"><i class="fa fa-moon-o"></i></a>
     <a title="Collapse/Open Table of contents" title="Hide Table of Contents" href="javascript:hideTableOfContents();" class="button">[ + ]</a>
 </div>
 
@@ -38,8 +39,7 @@
         </div>
         <div class="navLinks">
             <ul>
-                    <li>
-                        <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)" class="desktop">
+                    <li><div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)" class="desktop">
                             <a href="../guide/index.html" class="button">Table of contents</a>
                             <div id="nav-summary-childs" style="display:none;">
                                 
@@ -107,8 +107,7 @@
         <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option selected='selected' value='https://micronaut-projects.github.io/micronaut-picocli/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-picocli/2.2.0/guide/index.html'>2.2.0</option><option value='https://micronaut-projects.github.io/micronaut-picocli/2.1.0/guide/index.html'>2.1.0</option><option value='https://micronaut-projects.github.io/micronaut-picocli/2.0.0/guide/index.html'>2.0.0</option><option value='https://micronaut-projects.github.io/micronaut-picocli/1.2.1/guide/index.html'>1.2.1</option><option value='https://micronaut-projects.github.io/micronaut-picocli/1.2.0/guide/index.html'>1.2.0</option></select></p>
     </div>
     
-
-<h1 id="introduction">1 Introduction</h1>
+<h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-picocli/edit/master/src/main/docs/guide/introduction.adoc"'>
@@ -185,8 +184,7 @@ Picocli can generate completion scripts for bash and zsh, and offers an API to e
 </div>
 </div>
 
-
-<h1 id="releaseHistory">2 Release History</h1>
+<h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-picocli/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
@@ -202,8 +200,7 @@ Picocli can generate completion scripts for bash and zsh, and offers an API to e
 <p><a href="https://github.com/micronaut-projects/micronaut-picocli/releases">https://github.com/micronaut-projects/micronaut-picocli/releases</a></p>
 </div>
 
-
-<h1 id="setup">3 Setting up Picocli</h1>
+<h1 id="setup"><a class="anchor" href="#setup"></a>3 Setting up Picocli</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-picocli/edit/master/src/main/docs/guide/setup.adoc"'>
@@ -277,8 +274,7 @@ Picocli can generate completion scripts for bash and zsh, and offers an API to e
 </div>
 </div>
 
-
-<h1 id="generate">4 Generating a Picocli Project</h1>
+<h1 id="generate"><a class="anchor" href="#generate"></a>4 Generating a Picocli Project</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-picocli/edit/master/src/main/docs/guide/generate.adoc"'>
@@ -437,8 +433,7 @@ The <code>create-cli-app</code> command is more convenient, since it generates a
 </div>
 </div>
 
-
-<h1 id="quickstart">5 Picocli Quick Start</h1>
+<h1 id="quickstart"><a class="anchor" href="#quickstart"></a>5 Picocli Quick Start</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-picocli/edit/master/src/main/docs/guide/quickstart.adoc"'>
@@ -696,8 +691,7 @@ class ConfigDemo implements Callable&lt;Object&gt; {
 </div>
 </div>
 
-
-<h1 id="repository">6 Repository</h1>
+<h1 id="repository"><a class="anchor" href="#repository"></a>6 Repository</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-picocli/edit/master/src/main/docs/guide/repository.adoc"'>
