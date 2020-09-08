@@ -1,1 +1,2 @@
 io.micronaut.configuration.picocli
+io.micronaut.configuration.picocli.annotation
