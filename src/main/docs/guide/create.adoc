@@ -7,6 +7,6 @@ $ mn create-cli-app my-app
 ----
 ====
 
-or with https://launch.io[Micronaut Launch]
+or with https://micronaut.io/launch/[Micronaut Launch]
 
 image::launch.png[]
