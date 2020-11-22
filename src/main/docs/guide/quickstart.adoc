@@ -80,7 +80,7 @@ public class GitStarCommand implements Runnable {
 }
 ----
 <1> Headers, footers and descriptions can be multi-line. You can embed ANSI styled text anywhere with the `@|STYLE1[,STYLE2]…​ text|@` https://picocli.info/#_usage_help_with_styles_and_colors[markup notation].
-<2> Add version information to display when the user requests this with `--version`. This can also be supplied dynamically, e.g. from the link:https://github.com/remkop/picocli/blob/master/examples/src/main/java/picocli/examples/VersionProviderDemo2.java[manifest file] or a build-generated version link:https://github.com/remkop/picocli/blob/master/examples/src/main/java/picocli/examples/VersionProviderDemo1.java[properties file].
+<2> Add version information to display when the user requests this with `--version`. This can also be supplied dynamically, e.g. from the link:https://github.com/remkop/picocli/blob/master/picocli-examples/src/main/java/picocli/examples/VersionProviderDemo2.java[manifest file] or a build-generated version link:https://github.com/remkop/picocli/blob/master/picocli-examples/src/main/java/picocli/examples/VersionProviderDemo1.java[properties file].
 <3> Inject a HTTP client. In this case, hard-coded to the GitHub API endpoint.
 <4> A positional parameter that lets the user select one or more GitHub projects
 <5> The business logic: display information for each project the user requested.
