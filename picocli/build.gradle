@@ -8,5 +8,5 @@ dependencies {
     api "io.micronaut:micronaut-inject:$micronautVersion"
     api "io.micronaut:micronaut-runtime:$micronautVersion"    
     api "info.picocli:picocli:$picocliVersion"
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
 }
