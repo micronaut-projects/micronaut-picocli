@@ -13,8 +13,8 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import picocli.CommandLine.ParseResult;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;

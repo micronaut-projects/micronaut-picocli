@@ -1,7 +1,7 @@
 package io.micronaut.configuration.picocli;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import io.micronaut.context.annotation.Property;
 import io.micronaut.context.annotation.Value;
