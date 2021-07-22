@@ -20,7 +20,7 @@ import io.micronaut.context.annotation.Value;
 import io.micronaut.context.env.PropertySource;
 import io.micronaut.core.util.CollectionUtils;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
