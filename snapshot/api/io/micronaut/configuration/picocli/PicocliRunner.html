@@ -394,7 +394,7 @@ extends java.lang.Object</pre>
  This is equivalent to:
  </p>
  <pre><code>
- try (ApplicationContext context = ApplicationContext.build(clazz, Environment.CLI).start()) {
+ try (ApplicationContext context = ApplicationContext.builder(clazz, Environment.CLI).start()) {
      return new CommandLine(clazz, new MicronautFactory(context)).execute(args);
  }
  </code></pre>
@@ -405,7 +405,7 @@ extends java.lang.Object</pre>
  </p>
  <pre><code>
  // example of customizing picocli parser before invoking a command
- try (ApplicationContext context = ApplicationContext.build(clazz, Environment.CLI).start()) {
+ try (ApplicationContext context = ApplicationContext.builder(clazz, Environment.CLI).start()) {
      return new CommandLine(clazz, new MicronautFactory(context)).
           setUsageHelpAutoWidth(true).
           setCaseInsensitiveEnumValuesAllowed(true).
