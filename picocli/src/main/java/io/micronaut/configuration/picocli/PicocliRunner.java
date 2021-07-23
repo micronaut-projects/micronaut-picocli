@@ -61,7 +61,7 @@ public class PicocliRunner {
      *      or if help was requested and printed. Otherwise returns the result of calling the Callable
      */
     public static <C extends Callable<T>, T> T call(Class<C> cls, String... args) {
-        try (ApplicationContext ctx = ApplicationContext.build(cls, Environment.CLI).start()) {
+        try (ApplicationContext ctx = ApplicationContext.builder(cls, Environment.CLI).start()) {
             return call(cls, ctx, args);
         }
     }
@@ -136,7 +136,7 @@ public class PicocliRunner {
         CommandLine commandLine = new CommandLine(cls, new MicronautFactory(ctx));
         commandLine.execute(args);
     }
-    
+
     /**
      * Instantiates a new {@link ApplicationContext} for the {@link Environment#CLI} environment,
      * obtains an instance of the specified {@code Callable} or {@code Runnable} command
@@ -151,7 +151,7 @@ public class PicocliRunner {
      * This is equivalent to:
      * </p>
      * <pre>{@code
-     * try (ApplicationContext context = ApplicationContext.build(clazz, Environment.CLI).start()) {
+     * try (ApplicationContext context = ApplicationContext.builder(clazz, Environment.CLI).start()) {
      *     return new CommandLine(clazz, new MicronautFactory(context)).execute(args);
      * }
      * }</pre>
@@ -162,7 +162,7 @@ public class PicocliRunner {
      * </p>
      * <pre>{@code
      * // example of customizing picocli parser before invoking a command
-     * try (ApplicationContext context = ApplicationContext.build(clazz, Environment.CLI).start()) {
+     * try (ApplicationContext context = ApplicationContext.builder(clazz, Environment.CLI).start()) {
      *     return new CommandLine(clazz, new MicronautFactory(context)).
      *          setUsageHelpAutoWidth(true).
      *          setCaseInsensitiveEnumValuesAllowed(true).
@@ -206,7 +206,7 @@ public class PicocliRunner {
         io.micronaut.core.cli.CommandLine commandLine = io.micronaut.core.cli.CommandLine.parse(args);
         CommandLinePropertySource commandLinePropertySource = new CommandLinePropertySource(commandLine);
         return ApplicationContext
-                .build(cls, Environment.CLI)
+                .builder(cls, Environment.CLI)
                 .propertySources(commandLinePropertySource);
     }
 
