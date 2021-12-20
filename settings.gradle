@@ -1,3 +1,7 @@
-rootProject.name = 'picocli'
+plugins {
+    id 'io.micronaut.build.shared.settings' version '5.1.0'
+}
+
+rootProject.name = 'picocli-parent'
 
 include 'picocli'
