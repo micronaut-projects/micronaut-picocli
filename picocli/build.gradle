@@ -1,13 +1,15 @@
-group 'io.micronaut.picocli'
-version projectVersion
+plugins {
+    id 'io.micronaut.build.internal.picocli-module'
+}
 
 dependencies {
     annotationProcessor 'io.micronaut:micronaut-inject-java'
     annotationProcessor 'io.micronaut:micronaut-graal'
-    testAnnotationProcessor 'io.micronaut:micronaut-inject-java'
+
     api "io.micronaut:micronaut-inject:$micronautVersion"
     api "io.micronaut:micronaut-runtime:$micronautVersion"    
     api "info.picocli:picocli:$picocliVersion"
-    testImplementation 'junit:junit:4.13.2'
+
+    testAnnotationProcessor 'io.micronaut:micronaut-inject-java'
     testImplementation 'jakarta.inject:jakarta.inject-api:2.0.1'
 }
