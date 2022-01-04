@@ -18,7 +18,7 @@ import java.util.concurrent.Callable;
 class ConfigDemo implements Callable<Object> {
 
     private static int execute(Class<?> clazz, String[] args) {
-        try (ApplicationContext context = ApplicationContext.build(
+        try (ApplicationContext context = ApplicationContext.builder(
                 clazz, Environment.CLI).start()) { // <1>
 
             return new CommandLine(clazz, new MicronautFactory(context)). // <2>
