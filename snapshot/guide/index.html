@@ -591,7 +591,7 @@ import java.util.concurrent.Callable;
 class ConfigDemo implements Callable&lt;Object&gt; {
 
     private static int execute(Class&lt;?&gt; clazz, String[] args) {
-        try (ApplicationContext context = ApplicationContext.build(
+        try (ApplicationContext context = ApplicationContext.builder(
                 clazz, Environment.CLI).start()) { <i class="conum" data-value="1"></i><b>(1)</b>
 
             return new CommandLine(clazz, new MicronautFactory(context)). <i class="conum" data-value="2"></i><b>(2)</b>
