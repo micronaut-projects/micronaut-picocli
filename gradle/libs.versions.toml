@@ -1,17 +1,11 @@
 [versions]
-jakarta-inject-api = "2.0.1"
-picocli = "4.6.3"
-
-# Micronaut
-micronaut = "3.4.3"
-
+managed-picocli = "4.6.3"
 
 [libraries]
+managed-picocli = { module = "info.picocli:picocli", version.ref = "managed-picocli" }
+
 # Micronaut
 micronaut-graal = { module = "io.micronaut:micronaut-graal" }
-micronaut-inject = { module = "io.micronaut:micronaut-inject", version.ref = "micronaut" }
+micronaut-inject = { module = "io.micronaut:micronaut-inject" }
 micronaut-inject-java = { module = "io.micronaut:micronaut-inject-java" }
-micronaut-runtime = { module = "io.micronaut:micronaut-runtime", version.ref = "micronaut" }
-
-jakarta-inject-api = { module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject-api" }
-picocli = { module = "info.picocli:picocli", version.ref = "picocli" }
+micronaut-runtime = { module = "io.micronaut:micronaut-runtime" }

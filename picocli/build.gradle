@@ -3,13 +3,11 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(libs.micronaut.inject.java)
     annotationProcessor(libs.micronaut.graal)
 
     api(libs.micronaut.inject)
     api(libs.micronaut.runtime)
-    api(libs.picocli)
+    api(libs.managed.picocli)
 
     testAnnotationProcessor(libs.micronaut.inject.java)
-    testImplementation(libs.jakarta.inject.api)
 }

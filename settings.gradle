@@ -6,9 +6,10 @@ pluginManagement {
 }
 
 plugins {
-    id 'io.micronaut.build.shared.settings' version '5.3.8'
+    id 'io.micronaut.build.shared.settings' version '5.3.9'
 }
 
 rootProject.name = 'picocli-parent'
 
+include 'picocli-bom'
 include 'picocli'
