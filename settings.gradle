@@ -13,3 +13,7 @@ rootProject.name = 'picocli-parent'
 
 include 'picocli-bom'
 include 'picocli'
+
+micronautBuild {
+    importMicronautCatalog()
+}

@@ -3,9 +3,3 @@ managed-picocli = "4.6.3"
 
 [libraries]
 managed-picocli = { module = "info.picocli:picocli", version.ref = "managed-picocli" }
-
-# Micronaut
-micronaut-graal = { module = "io.micronaut:micronaut-graal" }
-micronaut-inject = { module = "io.micronaut:micronaut-inject" }
-micronaut-inject-java = { module = "io.micronaut:micronaut-inject-java" }
-micronaut-runtime = { module = "io.micronaut:micronaut-runtime" }
