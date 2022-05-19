@@ -3,3 +3,4 @@ managed-picocli = "4.6.3"
 
 [libraries]
 managed-picocli = { module = "info.picocli:picocli", version.ref = "managed-picocli" }
+managed-picocli-codegen = { module = "info.picocli:picocli-codegen", version.ref = "managed-picocli" }
