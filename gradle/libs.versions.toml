@@ -1,6 +1,11 @@
 [versions]
 managed-picocli = "4.6.3"
 
+micronaut-docs = "2.0.0"
+micronaut-test = "4.0.0-SNAPSHOT"
+groovy = "4.0.6"
+spock = "2.3-groovy-4.0"
+
 [libraries]
 managed-picocli = { module = "info.picocli:picocli", version.ref = "managed-picocli" }
 managed-picocli-codegen = { module = "info.picocli:picocli-codegen", version.ref = "managed-picocli" }

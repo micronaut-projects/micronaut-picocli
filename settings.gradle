@@ -14,13 +14,7 @@ rootProject.name = 'picocli-parent'
 include 'picocli-bom'
 include 'picocli'
 
-dependencyResolutionManagement {
-    repositories {
-        mavenCentral()
-        maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
-    }
-}
-
 micronautBuild {
+    addSnapshotRepository()
     importMicronautCatalog()
 }
