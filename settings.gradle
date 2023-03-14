@@ -6,7 +6,7 @@ pluginManagement {
 }
 
 plugins {
-    id 'io.micronaut.build.shared.settings' version '6.2.2'
+    id 'io.micronaut.build.shared.settings' version '6.3.5'
 }
 
 rootProject.name = 'picocli-parent'
@@ -16,5 +16,6 @@ include 'picocli'
 
 micronautBuild {
     addSnapshotRepository()
+    useStandardizedProjectNames = true
     importMicronautCatalog()
 }
