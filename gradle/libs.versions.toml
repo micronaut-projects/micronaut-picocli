@@ -1,4 +1,5 @@
 [versions]
+micronaut = "4.0.0-M1"
 managed-picocli = "4.7.0"
 
 micronaut-docs = "2.0.0"
