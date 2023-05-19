@@ -6,7 +6,6 @@ dependencies {
     annotationProcessor(mn.micronaut.graal)
 
     api(mn.micronaut.inject)
-    api(mn.micronaut.runtime)
     api(libs.managed.picocli)
 
     testAnnotationProcessor(mn.micronaut.inject.java)
