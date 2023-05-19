@@ -1,5 +1,5 @@
 [versions]
-managed-picocli = "4.6.3"
+managed-picocli = "4.7.3"
 
 [libraries]
 managed-picocli = { module = "info.picocli:picocli", version.ref = "managed-picocli" }
