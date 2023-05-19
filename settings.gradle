@@ -15,7 +15,6 @@ include 'picocli-bom'
 include 'picocli'
 
 micronautBuild {
-    addSnapshotRepository()
     useStandardizedProjectNames = true
     importMicronautCatalog()
 }
