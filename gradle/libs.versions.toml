@@ -8,5 +8,8 @@ groovy = "4.0.11"
 spock = "2.3-groovy-4.0"
 
 [libraries]
+# Core
+micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
+
 managed-picocli = { module = "info.picocli:picocli", version.ref = "managed-picocli" }
 managed-picocli-codegen = { module = "info.picocli:picocli-codegen", version.ref = "managed-picocli" }
