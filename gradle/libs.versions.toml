@@ -3,8 +3,8 @@ micronaut = "4.0.0"
 managed-picocli = "4.7.4"
 
 micronaut-docs = "2.0.0"
-micronaut-test = "4.0.0-M9"
-groovy = "4.0.11"
+micronaut-test = "4.0.0"
+groovy = "4.0.13"
 spock = "2.3-groovy-4.0"
 
 [libraries]
