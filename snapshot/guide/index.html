@@ -234,23 +234,7 @@ Picocli can generate completion scripts for bash and zsh, and offers an API to e
 <p>        <div class="listingblock multi-language-sample">
 <div class="title"></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"info.picocli:picocli")</span></code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
-    &lt;groupId&gt;info.picocli&lt;/groupId&gt;
-    &lt;artifactId&gt;picocli&lt;/artifactId&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div></p>
-</div>
-<div class="paragraph">
-<p>        <div class="listingblock multi-language-sample">
-<div class="title"></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.picocli:micronaut-picocli:5.0.2-SNAPSHOT")</span></code></pre>
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.picocli:micronaut-picocli")</span></code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -258,8 +242,29 @@ Picocli can generate completion scripts for bash and zsh, and offers an API to e
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
     &lt;groupId&gt;io.micronaut.picocli&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-picocli&lt;/artifactId&gt;
-    &lt;version&gt;5.0.2-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>The <code>picocli-codegen</code> module includes an annotation processor that can build a model from the picocli annotations at compile time rather than at runtime. Enabling this annotation processor in your project is optional, but <a href="https://picocli.info/#_annotation_processor">recommended</a>.</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">annotationProcessor(<span class="hljs-string">"info.picocli:picocli-codegen")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;annotationProcessorPaths&gt;
+    &lt;path&gt;
+        &lt;groupId&gt;info.picocli&lt;/groupId&gt;
+        &lt;artifactId&gt;picocli-codegen&lt;/artifactId&gt;
+    &lt;/path&gt;
+&lt;/annotationProcessorPaths&gt;</code></pre>
 </div>
 </div></p>
 </div>
