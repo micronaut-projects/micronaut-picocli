@@ -1,8 +1,10 @@
 To add support for Picocli to an existing project, you should first add the picocli dependency and the Micronaut picocli configuration to your build configuration.
 
-dependency:info.picocli:picocli[]
+dependency:micronaut-picocli[groupId="io.micronaut.picocli"]
 
-dependency:io.micronaut.picocli:micronaut-picocli[version="{version}"]
+The `picocli-codegen` module includes an annotation processor that can build a model from the picocli annotations at compile time rather than at runtime. Enabling this annotation processor in your project is optional, but https://picocli.info/#_annotation_processor[recommended].
+
+dependency:picocli-codegen[scope="annotationProcessor", groupId="info.picocli"]
 
 === Configuring picocli
 
