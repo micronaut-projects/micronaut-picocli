@@ -50,9 +50,20 @@ public class MyCliAppCommand implements Runnable { // <2>
 
 === Running the Application
 
-Now you can build the project and start the application. The build will create a `${project-name}-all.jar` with all dependencies in `build/libs`.
-Running this jar from Java will run the generated `MyCliAppCommand`.
+Now you can build the project and start the application. https://guides.micronaut.io/latest/executable-jar.html[Generate an executable Jar]. When you run this JAR, it executes the `MyCliAppCommand` command.
 
+With Gradle:
+
+[source, bash]
 ----
+$ ./gradlew shadowJar
 $ java -jar build/libs/my-cli-app-0.1-all.jar -v
+----
+
+With Maven Package:
+
+[source, bash]
+----
+$ ./mvnw package
+$ java -jar target/my-cli-app-0.1.jar -v
 ----
