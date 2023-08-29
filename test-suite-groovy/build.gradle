@@ -1,0 +1,11 @@
+plugins {
+    id 'groovy'
+    id 'io.micronaut.build.internal.picocli-testsuite'
+}
+
+dependencies {
+    testCompileOnly(mn.micronaut.inject.groovy)
+
+    testImplementation(mnTest.micronaut.test.spock)
+    testImplementation(libs.managed.picocli)
+}

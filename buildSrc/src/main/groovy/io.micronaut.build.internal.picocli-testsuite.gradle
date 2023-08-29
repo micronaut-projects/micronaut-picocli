@@ -1,0 +1,13 @@
+plugins {
+    id "io.micronaut.build.internal.picocli-base"
+}
+
+dependencies {
+    testImplementation projects.micronautPicocli
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(mnLogging.logback.classic)
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
