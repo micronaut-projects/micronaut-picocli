@@ -13,7 +13,7 @@ class ConfigDemoSpec extends Specification {
 
         when:
         String[] args = new String[] { };
-        Object called = PicocliRunner.call(ConfigDemo.class, ctx, args);
+        Object called = PicocliRunner.call(ConfigDemo, ctx, args);
 
         then:
         called == 'Hi!'

@@ -15,7 +15,7 @@ class MyCliAppCommandSpec extends Specification {
 
         when:
         String[] args = [ '-v' ]
-        PicocliRunner.run(MyCliAppCommand.class, ctx, args)
+        PicocliRunner.run(MyCliAppCommand, ctx, args)
 
         then:
         baos.toString().contains('Hi!')
