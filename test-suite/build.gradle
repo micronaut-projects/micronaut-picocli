@@ -4,8 +4,9 @@ plugins {
 }
 
 dependencies {
-    testAnnotationProcessor(libs.managed.picocli)
+    testAnnotationProcessor(mn.micronaut.inject.java)
 
+    testImplementation(mn.micronaut.inject.java)
     testImplementation(libs.junit.jupiter.api)
     testImplementation(mnTest.micronaut.test.junit5)
 }

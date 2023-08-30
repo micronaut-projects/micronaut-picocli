@@ -4,7 +4,10 @@ plugins {
 
 dependencies {
     testImplementation projects.micronautPicocli
-    testImplementation mn.micronaut.http.client
+
+    testImplementation(libs.managed.picocli)
+    testImplementation(mn.micronaut.http.client)
+    testImplementation(mn.micronaut.jackson.databind)
 
     testRuntimeOnly(libs.junit.jupiter.engine)
     testRuntimeOnly(mnLogging.logback.classic)

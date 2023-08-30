@@ -4,8 +4,7 @@ plugins {
 }
 
 dependencies {
-    testCompileOnly(mn.micronaut.inject.groovy)
+    testImplementation(mn.micronaut.inject.groovy)
 
     testImplementation(mnTest.micronaut.test.spock)
-    testImplementation(libs.managed.picocli)
 }
