@@ -60,7 +60,7 @@ class GitStarCommand implements Runnable {
     }
 
     static void main(String[] args) {
-        int exitCode = PicocliRunner.execute(GitStarCommand.class, args)
+        int exitCode = PicocliRunner.execute(GitStarCommand, args)
         System.exit(exitCode)
     }
 }
