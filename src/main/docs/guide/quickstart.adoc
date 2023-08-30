@@ -17,68 +17,9 @@ To create a picocli `Command` you create a class with fields annotated with `@Op
 For example the following is a picocli `@Command` that wraps around the GitHub API:
 
 .Example picocli command with injected HTTP client
-[source,java]
-----
-package example;
 
-import io.micronaut.configuration.picocli.PicocliRunner;
-import io.micronaut.context.ApplicationContext;
-import io.micronaut.http.client.annotation.*;
-import io.micronaut.http.client.*;
-import io.reactivex.*;
+snippet::io.micronaut.picocli.docs.quickstart.GitStarCommand[tags="imports,class"]
 
-import static io.micronaut.http.HttpRequest.*;
-
-import picocli.CommandLine;
-import picocli.CommandLine.Command;
-import picocli.CommandLine.Option;
-import picocli.CommandLine.Parameters;
-
-import java.util.*;
-import jakarta.inject.Inject;
-
-@Command(name = "git-star", header = {
-        "@|green       _ _      _             |@", // <1>
-        "@|green  __ _(_) |_ __| |_ __ _ _ _  |@",
-        "@|green / _` | |  _(_-<  _/ _` | '_| |@",
-        "@|green \\__, |_|\\__/__/\\__\\__,_|_|   |@",
-        "@|green |___/                        |@"},
-        description = "Shows GitHub stars for a project",
-        mixinStandardHelpOptions = true, version = "git-star 0.1") // <2>
-public class GitStarCommand implements Runnable {
-
-    @Client("https://api.github.com")
-    @Inject RxHttpClient client; // <3>
-
-    @Option(names = {"-v", "--verbose"}, description = "Shows some project details")
-    boolean verbose;
-
-    @Parameters(description = {"One or more GitHub slugs (comma separated) to show stargazers for.",
-                "  Default: ${DEFAULT-VALUE}"}, split = ",", paramLabel = "<owner/repo>") // <4>
-    List<String> githubSlugs = Arrays.asList("micronaut-projects/micronaut-core", "remkop/picocli");
-
-    public static void main(String[] args) {
-        int exitCode = PicocliRunner.execute(GitStarCommand.class, args);
-        System.exit(exitCode);
-    }
-
-    public void run() { // <5>
-        for (String slug : githubSlugs) {
-            Map m = client.retrieve(
-                    GET("/repos/" + slug).header("User-Agent", "remkop-picocli"),
-                    Map.class).blockingFirst();
-            System.out.printf("%s has %s stars%n", slug, m.get("watchers"));
-
-            if (verbose) {
-                String msg = "Description: %s%nLicense: %s%nForks: %s%nOpen issues: %s%n%n";
-                System.out.printf(msg, m.get("description"),
-                                ((Map) m.get("license")).get("name"),
-                                m.get("forks"), m.get("open_issues"));
-            }
-        }
-    }
-}
-----
 <1> Headers, footers and descriptions can be multi-line. You can embed ANSI styled text anywhere with the `@|STYLE1[,STYLE2]…​ text|@` https://picocli.info/#_usage_help_with_styles_and_colors[markup notation].
 <2> Add version information to display when the user requests this with `--version`. This can also be supplied dynamically, e.g. from the link:https://github.com/remkop/picocli/blob/master/picocli-examples/src/main/java/picocli/examples/VersionProviderDemo2.java[manifest file] or a build-generated version link:https://github.com/remkop/picocli/blob/master/picocli-examples/src/main/java/picocli/examples/VersionProviderDemo1.java[properties file].
 <3> Inject a HTTP client. In this case, hard-coded to the GitHub API endpoint.
