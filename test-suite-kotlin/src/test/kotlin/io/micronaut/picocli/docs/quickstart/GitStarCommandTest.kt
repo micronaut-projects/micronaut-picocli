@@ -11,7 +11,7 @@ import java.io.PrintStream
 class GitStarCommandTest {
 
     @Test
-    fun testConfigurationExample() {
+    fun testGitStarCommand() {
 
         val baos = ByteArrayOutputStream()
         System.setOut(PrintStream(baos))
