@@ -12,8 +12,8 @@ class ConfigDemoSpec extends Specification {
         ApplicationContext ctx = ApplicationContext.run(Environment.CLI, Environment.TEST)
 
         when:
-        String[] args = new String[] { };
-        Object called = PicocliRunner.call(ConfigDemo, ctx, args);
+        String[] args = new String[] { }
+        Object called = PicocliRunner.call(ConfigDemo, ctx, args)
 
         then:
         called == 'Hi!'

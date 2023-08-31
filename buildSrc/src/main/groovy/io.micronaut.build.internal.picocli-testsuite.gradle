@@ -4,13 +4,13 @@ plugins {
 
 dependencies {
     testImplementation projects.micronautPicocli
+    testImplementation libs.managed.picocli
 
-    testImplementation(libs.managed.picocli)
-    testImplementation(mn.micronaut.http.client)
-    testImplementation(mn.micronaut.jackson.databind)
+    testImplementation mn.micronaut.http.client
+    testImplementation mn.micronaut.jackson.databind
 
-    testRuntimeOnly(libs.junit.jupiter.engine)
-    testRuntimeOnly(mnLogging.logback.classic)
+    testRuntimeOnly libs.junit.jupiter.engine
+    testRuntimeOnly mnLogging.logback.classic
 }
 
 tasks.withType(Test) {

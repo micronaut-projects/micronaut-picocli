@@ -3,12 +3,12 @@ micronaut = "4.1.2"
 managed-picocli = "4.7.4"
 
 micronaut-docs = "2.0.0"
-micronaut-test = "4.0.0"
+micronaut-test = "4.0.1"
 groovy = "4.0.13"
 spock = "2.3-groovy-4.0"
-kotlin = "1.8.22"
+kotlin = "1.9.10"
 
-micronaut-logging = "1.0.0"
+micronaut-logging = "1.1.0"
 
 [libraries]
 # Core

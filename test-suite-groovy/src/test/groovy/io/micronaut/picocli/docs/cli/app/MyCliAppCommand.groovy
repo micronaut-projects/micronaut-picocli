@@ -12,7 +12,7 @@ import static org.slf4j.LoggerFactory.getLogger
 // tag::class[]
 @Command(name = 'my-cli-app', description = '...', mixinStandardHelpOptions = true) // <1>
 class MyCliAppCommand implements Runnable { // <2>
-    private static final Logger LOG = getLogger(MyCliAppCommand.class);
+    private static final Logger LOG = getLogger(MyCliAppCommand.class)
 
     @Option(names = ['-v', '--verbose'], description = '...') // <3>
     boolean verbose

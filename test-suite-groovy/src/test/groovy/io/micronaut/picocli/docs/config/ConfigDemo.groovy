@@ -24,7 +24,7 @@ class ConfigDemo implements Callable<Object> {
     }
 
     static void main(String[] args) {
-        int exitCode = execute(ConfigDemo.class, args);
+        int exitCode = execute(ConfigDemo.class, args)
         System.exit(exitCode) // <6>
     }
 

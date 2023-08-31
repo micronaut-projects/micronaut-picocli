@@ -5,6 +5,5 @@ plugins {
 
 dependencies {
     testImplementation(mn.micronaut.inject.groovy)
-
     testImplementation(mnTest.micronaut.test.spock)
 }

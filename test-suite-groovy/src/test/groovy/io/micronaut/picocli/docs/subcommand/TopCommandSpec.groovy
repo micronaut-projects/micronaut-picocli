@@ -3,7 +3,6 @@ package io.micronaut.picocli.docs.subcommand
 import io.micronaut.configuration.picocli.PicocliRunner
 import io.micronaut.context.ApplicationContext
 import io.micronaut.context.env.Environment
-import io.micronaut.picocli.docs.config.ConfigDemo
 import spock.lang.Specification
 
 class TopCommandSpec extends Specification {
