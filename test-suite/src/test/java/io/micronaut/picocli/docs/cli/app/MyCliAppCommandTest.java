@@ -10,10 +10,10 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MyCliAppCommandTest {
+class MyCliAppCommandTest {
 
     @Test
-    public void testWithCommandLineOption() {
+    void testWithCommandLineOption() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         System.setOut(new PrintStream(baos));
 

@@ -10,10 +10,10 @@ import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GitStarCommandTest {
+class GitStarCommandTest {
 
     @Test
-    public void testGitStarCommand() {
+    void testGitStarCommand() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         System.setOut(new PrintStream(baos));
 

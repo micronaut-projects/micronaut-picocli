@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TopCommandTest {
+class TopCommandTest {
 
     @Test
-    public void testSubCommandsExample() {
+    void testSubCommandsExample() {
 
         try (ApplicationContext ctx = ApplicationContext.run(Environment.CLI, Environment.TEST)) {
             String[] args = new String[] { };
