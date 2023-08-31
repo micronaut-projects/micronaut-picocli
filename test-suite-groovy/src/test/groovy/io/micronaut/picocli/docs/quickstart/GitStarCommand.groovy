@@ -30,7 +30,7 @@ class GitStarCommand implements Runnable {
     @Inject
     HttpClient client // <3>
 
-    @Option(names = [ '-v', '--verbose' ], description = 'Shows some project details')
+    @Option(names = ['-v', '--verbose'], description = 'Shows some project details')
     boolean verbose
 
     @Parameters(  // <4>
@@ -51,13 +51,17 @@ class GitStarCommand implements Runnable {
             println("$slug has ${m.watchers} stars")
 
             if (verbose) {
-                println "Description: ${m.description}\nLicense: ${m.license?.name}\nForks: ${m.forks}\nOpen issues: ${m.open_issues}\n"
+                println """Description: ${m.description}
+                          |License: ${m.license?.name}
+                          |Forks: ${m.forks}
+                          |Open issues: ${m.open_issues}
+                          |""".stripMargin()
             }
         }
     }
 
     static void main(String[] args) {
-        int exitCode = PicocliRunner.execute(GitStarCommand, args + '-v')
+        int exitCode = PicocliRunner.execute(GitStarCommand, args)
         System.exit(exitCode)
     }
 }

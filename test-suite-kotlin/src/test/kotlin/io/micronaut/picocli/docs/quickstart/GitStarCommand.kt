@@ -43,18 +43,18 @@ class GitStarCommand : Runnable {
 
     override fun run() { // <5>
         val blockingClient = client.toBlocking()
-        for (slug in githubSlugs) {
-            val httpRequest: HttpRequest<Any> = HttpRequest.GET<Any>("repos/$slug")
+        githubSlugs.forEach { slug ->
+            val httpRequest = HttpRequest.GET<Any>("repos/$slug")
                 .header("User-Agent", "remkop-picocli")
-            val m: Map<*,*> = blockingClient.retrieve(httpRequest, MutableMap::class.java)
-            System.out.printf("%s has %s stars%n", slug, m["watchers"])
+            val m = blockingClient.retrieve(httpRequest, Map::class.java)
+            println("$slug has ${m["watchers"]} stars")
+
             if (verbose) {
-                val msg = "Description: %s%nLicense: %s%nForks: %s%nOpen issues: %s%n%n"
-                System.out.printf(
-                    msg, m["description"],
-                    (m["license"] as Map<*, *>?)!!["name"],
-                    m["forks"], m["open_issues"]
-                )
+                println("""Description: ${m["description"]}
+                          |License: ${(m["license"] as Map<*,*>)["name"]}
+                          |Forks: ${m["forks"]}
+                          |Open issues: ${m["open_issues"]}
+                          |""".trimMargin())
             }
         }
     }
