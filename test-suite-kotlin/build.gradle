@@ -1,0 +1,16 @@
+plugins {
+    alias libs.plugins.kotlin.jvm
+    alias libs.plugins.kotlin.kapt
+    id 'io.micronaut.build.internal.picocli-testsuite'
+}
+
+dependencies {
+    kaptTest(platform(mn.micronaut.core.bom))
+    kaptTest(mn.micronaut.inject.java)
+
+    testAnnotationProcessor(libs.managed.picocli)
+
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(mnTest.micronaut.test.junit5)
+    testRuntimeOnly(mnLogging.logback.classic)
+}

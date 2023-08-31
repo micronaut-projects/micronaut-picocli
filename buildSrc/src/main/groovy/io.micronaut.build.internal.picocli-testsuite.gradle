@@ -1,0 +1,18 @@
+plugins {
+    id "io.micronaut.build.internal.picocli-base"
+}
+
+dependencies {
+    testImplementation projects.micronautPicocli
+    testImplementation libs.managed.picocli
+
+    testImplementation mn.micronaut.http.client
+    testImplementation mn.micronaut.jackson.databind
+
+    testRuntimeOnly libs.junit.jupiter.engine
+    testRuntimeOnly mnLogging.logback.classic
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+}

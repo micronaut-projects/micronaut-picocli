@@ -1,11 +1,14 @@
 [versions]
-micronaut = "4.0.2"
+micronaut = "4.1.2"
 managed-picocli = "4.7.4"
 
 micronaut-docs = "2.0.0"
-micronaut-test = "4.0.0"
+micronaut-test = "4.0.1"
 groovy = "4.0.13"
 spock = "2.3-groovy-4.0"
+kotlin = "1.9.10"
+
+micronaut-logging = "1.1.0"
 
 [libraries]
 # Core
@@ -13,3 +16,10 @@ micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'mi
 
 managed-picocli = { module = "info.picocli:picocli", version.ref = "managed-picocli" }
 managed-picocli-codegen = { module = "info.picocli:picocli-codegen", version.ref = "managed-picocli" }
+
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
+
+[plugins]
+kotlin-jvm = { id = 'org.jetbrains.kotlin.jvm', version.ref = 'kotlin' }
+kotlin-kapt = { id = 'org.jetbrains.kotlin.kapt', version.ref = 'kotlin' }

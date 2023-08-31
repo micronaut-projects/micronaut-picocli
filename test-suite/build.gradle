@@ -1,0 +1,10 @@
+plugins {
+    id 'java'
+    id 'io.micronaut.build.internal.picocli-testsuite'
+}
+
+dependencies {
+    testAnnotationProcessor(mn.micronaut.inject.java)
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(mnTest.micronaut.test.junit5)
+}

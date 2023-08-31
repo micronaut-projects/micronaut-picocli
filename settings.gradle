@@ -10,11 +10,17 @@ plugins {
 }
 
 rootProject.name = 'picocli-parent'
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include 'picocli-bom'
 include 'picocli'
+include 'test-suite'
+include 'test-suite-groovy'
+include 'test-suite-kotlin'
 
 micronautBuild {
     useStandardizedProjectNames = true
     importMicronautCatalog()
 }
+include 'test-suite-kotlin'
+
