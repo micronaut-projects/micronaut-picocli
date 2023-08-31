@@ -40,27 +40,24 @@ class GitStarCommand implements Runnable {
         split = ',',
         paramLabel = '<owner/repo>'
     )
-    List<String> githubSlugs = Arrays.asList('micronaut-projects/micronaut-core', 'remkop/picocli')
+    List<String> githubSlugs = ['micronaut-projects/micronaut-core', 'remkop/picocli']
 
     void run() { // <5>
         BlockingHttpClient blockingClient = client.toBlocking()
-        for (String slug : githubSlugs) {
-            HttpRequest<Object> httpRequest = HttpRequest.GET('/repos/' + slug)
+        githubSlugs.each { slug ->
+            HttpRequest<Object> httpRequest = HttpRequest.GET("/repos/$slug")
                     .header('User-Agent', 'remkop-picocli')
             Map<?,?> m = blockingClient.retrieve(httpRequest, Map.class)
-            System.out.printf('%s has %s stars%n', slug, m.get('watchers'))
+            println("$slug has ${m.watchers} stars")
 
             if (verbose) {
-                String msg = 'Description: %s%nLicense: %s%nForks: %s%nOpen issues: %s%n%n'
-                System.out.printf(msg, m.get('description'),
-                        ((Map<?,?>) m.get('license')).get('name'),
-                        m.get('forks'), m.get('open_issues'))
+                println "Description: ${m.description}\nLicense: ${m.license?.name}\nForks: ${m.forks}\nOpen issues: ${m.open_issues}\n"
             }
         }
     }
 
     static void main(String[] args) {
-        int exitCode = PicocliRunner.execute(GitStarCommand, args)
+        int exitCode = PicocliRunner.execute(GitStarCommand, args + '-v')
         System.exit(exitCode)
     }
 }
