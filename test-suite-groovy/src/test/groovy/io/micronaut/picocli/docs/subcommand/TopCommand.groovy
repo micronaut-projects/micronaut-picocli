@@ -23,13 +23,16 @@ class TopCommand implements Callable<Object> { // <2>
 
 @Command(name = 'subcmd1')
 class SubCmd1 implements Callable<Object> { // <2>
+
     @Override
     Object call() throws Exception {
         'Hi Sub Command 1!'
     }
 }
+
 @Command(name = 'subcmd2')
 class SubCmd2 implements Callable<Object> { // <2>
+
     @Override
     Object call() throws Exception {
         'Hi Sub Command 2!'

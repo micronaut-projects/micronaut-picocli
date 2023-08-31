@@ -9,10 +9,6 @@ import java.util.concurrent.Callable
 // tag::class[]
 @Command(name = "topcmd", subcommands = [SubCmd1::class, SubCmd2::class]) // <1>
 class TopCommand : Callable<Any> { // <2>
-    @Throws(Exception::class)
-    override fun call(): Any {
-        return "Hi Top Command!"
-    }
 
     companion object {
         @JvmStatic
@@ -20,10 +16,16 @@ class TopCommand : Callable<Any> { // <2>
             PicocliRunner.execute(TopCommand::class.java, *args) // <3>
         }
     }
+
+    @Throws(Exception::class)
+    override fun call(): Any {
+        return "Hi Top Command!"
+    }
 }
 
 @Command(name = "subcmd1")
 internal class SubCmd1 : Callable<Any> { // <2>
+
     @Throws(Exception::class)
     override fun call(): Any {
         return "Hi Sub Command 1!"
@@ -32,8 +34,10 @@ internal class SubCmd1 : Callable<Any> { // <2>
 
 @Command(name = "subcmd2")
 internal class SubCmd2 : Callable<Any> { // <2>
+
     @Throws(Exception::class)
     override fun call(): Any {
         return "Hi Sub Command 2!"
     }
 }
+// end::class[]
