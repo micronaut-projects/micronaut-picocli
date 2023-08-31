@@ -17,7 +17,7 @@ class GitStarCommandTest {
         System.setOut(PrintStream(baos))
 
         ApplicationContext.run(Environment.CLI, Environment.TEST).use { ctx ->
-            val args = arrayOf<String>()
+            val args = arrayOf("-v")
             PicocliRunner.run(GitStarCommand::class.java, ctx, *args)
             val output = baos.toString()
 
