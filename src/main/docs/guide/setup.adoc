@@ -6,6 +6,8 @@ The `picocli-codegen` module includes an annotation processor that can build a m
 
 dependency:picocli-codegen[scope="annotationProcessor", groupId="info.picocli"]
 
+NOTE: The https://github.com/remkop/picocli/issues/1564[`picocli-codegen` annotation processor is incompatible with the _Kotlin KSP_ compiler plugin]. Using it in a Kotlin project requires the _Kotlin Kapt_ compiler plugin instead. 
+
 === Configuring picocli
 
 Picocli does not require configuration. See other sections of the manual for configuring the services and resources to inject.
