@@ -1,21 +1,25 @@
 package io.micronaut.configuration.picocli;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
-
-import io.micronaut.context.annotation.Property;
-import io.micronaut.context.annotation.Value;
-import org.junit.Before;
-import org.junit.Test;
-import picocli.CommandLine.Command;
-import picocli.CommandLine.Option;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.List;
 import java.util.concurrent.Callable;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
-import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.containsString;
+import org.junit.Before;
+import org.junit.Test;
+
+import io.micronaut.context.annotation.Property;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
 
 public class PicocliRunnerTest {
 
@@ -141,6 +145,12 @@ public class PicocliRunnerTest {
     @Test
     public void testExecuteNormal() {
         int exitCode = PicocliRunner.execute(MyRunnableCmd.class, "-v");
+        assertEquals(0, exitCode);
+    }
+
+    @Test
+    public void testExecuteNormal_withProvidedEnvironments() {
+        int exitCode = PicocliRunner.execute(MyRunnableCmd.class, List.of("jdbc"), "-v");
         assertEquals(0, exitCode);
     }
 
