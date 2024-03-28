@@ -20,14 +20,23 @@ import io.micronaut.context.ApplicationContextBuilder;
 import io.micronaut.context.env.CommandLinePropertySource;
 import io.micronaut.context.env.Environment;
 import io.micronaut.core.annotation.TypeHint;
+import io.micronaut.core.util.CollectionUtils;
 import picocli.CommandLine;
-import picocli.CommandLine.*;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.ExecutionException;
+import picocli.CommandLine.InitializationException;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
 
 import java.lang.reflect.Executable;
 import java.lang.reflect.Parameter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 /**
@@ -181,6 +190,21 @@ public class PicocliRunner {
     }
 
     /**
+     * Same than {@link #execute(Class, String...)}, but with a list of customEnvironments to be applied.
+     * @param clazz the Runnable or Callable command class
+     * @param environments List of environments to be applied when building {@link ApplicationContext}
+     * @param args the command line arguments
+     * @return the exit code returned by {@link CommandLine#execute(String...)}
+     * @see #execute(Class, String...)
+     */
+    public static int execute(final Class<?> clazz, final Collection<String> environments, final String... args) {
+        final ApplicationContextBuilder builder = buildApplicationContext(clazz, environments, args);
+        try (ApplicationContext context = builder.start()) {
+            return execute(clazz, context, args);
+        }
+    }
+
+    /**
      * Obtains an instance of the specified {@code Callable} or {@code Runnable} command class
      * from the specified context, injecting any beans from the specified context as required,
      * then parses the specified command line arguments, populating fields and methods annotated
@@ -203,11 +227,21 @@ public class PicocliRunner {
     }
 
     private static ApplicationContextBuilder buildApplicationContext(Class<?> cls, String[] args) {
-        io.micronaut.core.cli.CommandLine commandLine = io.micronaut.core.cli.CommandLine.parse(args);
-        CommandLinePropertySource commandLinePropertySource = new CommandLinePropertySource(commandLine);
+        return buildApplicationContext(cls, Collections.singletonList(Environment.CLI), args);
+    }
+
+    private static ApplicationContextBuilder buildApplicationContext(final Class<?> cls, final Collection<String> customEnvironments, final String[] args) {
+        final io.micronaut.core.cli.CommandLine commandLine = io.micronaut.core.cli.CommandLine.parse(args);
+        final CommandLinePropertySource commandLinePropertySource = new CommandLinePropertySource(commandLine);
+
+        final Set<String> environments = new HashSet<>();
+        environments.add(Environment.CLI);
+        if (CollectionUtils.isNotEmpty(customEnvironments)) {
+            environments.addAll(customEnvironments);
+        }
         return ApplicationContext
-                .builder(cls, Environment.CLI)
-                .propertySources(commandLinePropertySource);
+            .builder(cls, environments.toArray(String[]::new))
+            .propertySources(commandLinePropertySource);
     }
 
 }
