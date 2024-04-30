@@ -275,7 +275,7 @@ Picocli can generate completion scripts for bash and zsh, and offers an API to e
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <a href="https://github.com/remkop/picocli/issues/1564"><code>picocli-codegen</code> annotation processor is incompatible with the <em>Kotlin KSP</em> compiler plugin</a>. Using it in a Kotlin project requires the <em>Kotlin Kapt</em> compiler plugin instead.
+The <a href="https://github.com/remkop/picocli/issues/1564"><code>picocli-codegen</code> annotation processor is incompatible with the <em>Kotlin KSP</em> compiler plugin</a>. For Kotlin with the <em>KAPT</em> plugin, add the <code>picocli-codegen</code> dependency in <a href="https://docs.micronaut.io/4.4.3/guide/#kapt">kapt scope</a>, and for Groovy add <code>picocli-codegen</code> in compileOnly scope.
 </td>
 </tr>
 </table>
