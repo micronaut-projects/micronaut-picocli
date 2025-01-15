@@ -1,5 +1,3 @@
-rootProject.name = 'picocli-parent'
-
 dependencyResolutionManagement {
     versionCatalogs {
         libs {
