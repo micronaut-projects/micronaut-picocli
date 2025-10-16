@@ -2,7 +2,7 @@
 micronaut = "4.10.4"
 managed-picocli = "4.7.7"
 
-micronaut-docs = "2.0.0"
+micronaut-docs = "3.0.0"
 micronaut-test = "4.9.0"
 groovy = "4.0.13"
 spock = "2.3-groovy-4.0"
