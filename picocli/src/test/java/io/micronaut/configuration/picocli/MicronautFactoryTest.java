@@ -19,13 +19,14 @@ import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.annotation.Value;
 import io.micronaut.context.env.PropertySource;
 import io.micronaut.core.util.CollectionUtils;
+import org.junit.jupiter.api.Test;
 
 import jakarta.inject.Singleton;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MicronautFactoryTest {
     @Test
@@ -40,8 +41,8 @@ public class MicronautFactoryTest {
         A a = factory.create(A.class);
         A another = applicationContext.getBean(A.class);
 
-        assertSame("can get singleton A from factory and context", another, a);
-        assertEquals("injected value is available", "testValue", a.injectedValue);
+        assertSame(another, a, "can get singleton A from factory and context");
+        assertEquals("testValue", a.injectedValue, "injected value is available");
 
         applicationContext.close();
     }

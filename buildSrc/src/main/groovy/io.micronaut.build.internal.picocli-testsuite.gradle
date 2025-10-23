@@ -11,6 +11,7 @@ dependencies {
 
     testRuntimeOnly mnTest.junit.jupiter.engine
     testRuntimeOnly mnLogging.logback.classic
+    testRuntimeOnly mnTest.junit.platform.launcher
 }
 
 tasks.withType(Test) {

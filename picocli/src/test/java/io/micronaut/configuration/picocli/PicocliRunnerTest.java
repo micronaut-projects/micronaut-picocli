@@ -1,5 +1,18 @@
 package io.micronaut.configuration.picocli;
 
+import io.micronaut.context.annotation.Property;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.List;
+import java.util.concurrent.Callable;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
@@ -7,26 +20,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.List;
-import java.util.concurrent.Callable;
-import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import io.micronaut.context.annotation.Property;
-import picocli.CommandLine.Command;
-import picocli.CommandLine.Option;
-
 public class PicocliRunnerTest {
 
     private static final int EXIT_CODE_INVALID_INPUT = 222;
     private static final int EXIT_CODE_EXECUTION_ERROR = 123;
 
-    @Before
+    @BeforeEach
     public void before() {
         MyRunnableCmd.serviceResult = null;
         MyRunnableCmd.verbose = false;
@@ -192,4 +191,3 @@ public class PicocliRunnerTest {
         }
     }
 }
-
