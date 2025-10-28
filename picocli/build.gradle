@@ -8,5 +8,11 @@ dependencies {
     api(mn.micronaut.inject)
     api(libs.managed.picocli)
 
+    testImplementation(mnTest.junit.jupiter.api)
+    testRuntimeOnly(mnTest.junit.jupiter.engine)
     testAnnotationProcessor(mn.micronaut.inject.java)
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
 }
