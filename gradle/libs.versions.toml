@@ -1,5 +1,5 @@
 [versions]
-micronaut = "4.10.6"
+micronaut = "4.10.8"
 managed-picocli = "4.7.7"
 
 [libraries]
