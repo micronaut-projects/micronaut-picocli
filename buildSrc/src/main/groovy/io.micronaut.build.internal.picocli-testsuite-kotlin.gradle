@@ -1,6 +1,4 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm"
-    id "org.jetbrains.kotlin.kapt"
     id "io.micronaut.build.internal.picocli-testsuite"
-    id "io.micronaut.build.internal.kotlin-base"
+    id "io.micronaut.build.internal.kotlin-kapt"
 }

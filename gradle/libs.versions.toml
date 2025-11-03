@@ -2,14 +2,9 @@
 micronaut = "4.10.6"
 managed-picocli = "4.7.7"
 
-kotlin = "2.2.21"
-
 [libraries]
 # Core
 micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
 
 managed-picocli = { module = "info.picocli:picocli", version.ref = "managed-picocli" }
 managed-picocli-codegen = { module = "info.picocli:picocli-codegen", version.ref = "managed-picocli" }
-
-kotlin-jvm = { module = 'org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin', version.ref = 'kotlin' }
-kotlin-kapt = { module = 'org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin', version.ref = 'kotlin' }
