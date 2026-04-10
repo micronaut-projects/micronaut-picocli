@@ -1,6 +1,8 @@
 package io.micronaut.configuration.picocli;
 
+import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.annotation.Property;
+import io.micronaut.context.env.Environment;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +34,7 @@ public class PicocliRunnerTest {
 
         MyCallableCmd.x = 0;
         MyCallableCmd.y = 0;
+        RequiredSubcommand.executed = false;
     }
 
     @Singleton
@@ -111,6 +114,21 @@ public class PicocliRunnerTest {
         }
     }
 
+    @Command(name = "topLevel", subcommands = RequiredSubcommand.class)
+    static class TopLevelCommand {
+    }
+
+    @Command(name = "sub")
+    static class RequiredSubcommand implements Runnable {
+
+        static boolean executed;
+
+        @Override
+        public void run() {
+            executed = true;
+        }
+    }
+
     @Test
     public void testRun() throws Exception {
         // preconditions
@@ -157,6 +175,19 @@ public class PicocliRunnerTest {
     public void testExecuteNonZeroExitCode() {
         int exitCode = PicocliRunner.execute(MyCallableCmd.class, "-x=11", "-y", "3");
         assertEquals(33, exitCode);
+    }
+
+    @Test
+    public void testExecuteWithProvidedContextAndWildcardClassForSubcommandOnlyParent() {
+        try (ApplicationContext context = ApplicationContext.run(Environment.CLI, Environment.TEST)) {
+            String[] args = {"sub"};
+            Class<?> commandClass = TopLevelCommand.class;
+
+            int exitCode = PicocliRunner.execute(commandClass, context, args);
+
+            assertEquals(0, exitCode);
+            assertTrue(RequiredSubcommand.executed);
+        }
     }
 
     @Test
