@@ -222,7 +222,7 @@ public class PicocliRunner {
      * @param args the command line arguments
      * @return the exit code returned by {@link CommandLine#execute(String...)}
      */
-    private static int execute(Class<?> clazz, ApplicationContext context, String... args) {
+    public static int execute(Class<?> clazz, ApplicationContext context, String... args) {
         return new CommandLine(clazz, new MicronautFactory(context)).execute(args);
     }
 
