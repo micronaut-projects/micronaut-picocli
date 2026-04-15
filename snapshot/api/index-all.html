@@ -80,6 +80,15 @@ annotations, and finally calls the command and returns the result.</div>
 </dl>
 <h2 class="title" id="I:E">E</h2>
 <dl class="index">
+<dt><a href="io/micronaut/configuration/picocli/PicocliRunner.html#execute(java.lang.Class,io.micronaut.context.ApplicationContext,java.lang.String...)" class="member-name-link">execute(Class, ApplicationContext, String...)</a> - Static method in class io.micronaut.configuration.picocli.<a href="io/micronaut/configuration/picocli/PicocliRunner.html" title="class in io.micronaut.configuration.picocli">PicocliRunner</a></dt>
+<dd>
+<div class="block">Obtains an instance of the specified <code>Callable</code> or <code>Runnable</code> command class
+from the specified context, injecting any beans from the specified context as required,
+then parses the specified command line arguments, populating fields and methods annotated
+with picocli <code>@Option</code> and <code>@Parameters</code>
+annotations, and finally <code>executes</code> the command
+and returns the resulting exit code.</div>
+</dd>
 <dt><a href="io/micronaut/configuration/picocli/PicocliRunner.html#execute(java.lang.Class,java.lang.String...)" class="member-name-link">execute(Class, String...)</a> - Static method in class io.micronaut.configuration.picocli.<a href="io/micronaut/configuration/picocli/PicocliRunner.html" title="class in io.micronaut.configuration.picocli">PicocliRunner</a></dt>
 <dd>
 <div class="block">Instantiates a new <code>ApplicationContext</code> for the <code>Environment.CLI</code> environment,
