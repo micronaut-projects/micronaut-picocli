@@ -15,9 +15,9 @@
  */
 package io.micronaut.configuration.picocli;
 
+import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.env.Environment;
-import io.micronaut.context.*;
-import io.micronaut.context.exceptions.*;
+import io.micronaut.context.exceptions.NoSuchBeanException;
 import picocli.CommandLine;
 import picocli.CommandLine.IFactory;
 import java.util.Objects;
