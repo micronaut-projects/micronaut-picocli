@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"io.micronaut.configuration.picocli"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"io.micronaut.configuration.picocli"},{"l":"io.micronaut.picocli.info"}];updateSearchResults();
