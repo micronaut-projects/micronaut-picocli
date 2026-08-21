@@ -52,12 +52,12 @@ jobs:
          df -h
 
       - name: "📥 Checkout repository"
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
 
       - name: "🔧 Setup GraalVM CE"
-        uses: graalvm/setup-graalvm@809afe62741147990fbf405045cd15e61bffedfe # v1
+        uses: graalvm/setup-graalvm@5298d94fb55a4f185c602eeac5de1b553882abe2 # v1
         with:
           distribution: 'graalvm'
           java-version: ${{ matrix.java }}
@@ -65,7 +65,7 @@ jobs:
           native-image-job-reports: true
 
       - name: "🔧 Setup Gradle"
-        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
 
       - name: "❓ Optional setup step"
         run: |
