@@ -20,6 +20,9 @@ For example the following is a picocli `@Command` that wraps around the GitHub A
 
 snippet::io.micronaut.picocli.docs.quickstart.GitStarCommand[tags="imports,class"]
 
+[.lang-python]
+WARNING: picocli reads the `@Command`, `@Option` and `@Parameters` annotations reflectively from the Java class of the command, which the Java class generated for a Python class does not expose yet, so Python picocli commands cannot be run with the current Python compiler release; the Python snippets document the intended programming model.
+
 <1> Headers, footers and descriptions can be multi-line. You can embed ANSI styled text anywhere with the `@|STYLE1[,STYLE2]…​ text|@` https://picocli.info/#_usage_help_with_styles_and_colors[markup notation].
 <2> Add version information to display when the user requests this with `--version`. This can also be supplied dynamically, e.g. from the link:https://github.com/remkop/picocli/blob/master/picocli-examples/src/main/java/picocli/examples/VersionProviderDemo2.java[manifest file] or a build-generated version link:https://github.com/remkop/picocli/blob/master/picocli-examples/src/main/java/picocli/examples/VersionProviderDemo1.java[properties file].
 <3> Inject a HTTP client. In this case, hard-coded to the GitHub API endpoint.

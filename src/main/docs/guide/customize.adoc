@@ -8,6 +8,9 @@ The code below demonstrates how to do this:
 
 snippet::io.micronaut.picocli.docs.config.ConfigDemo[tags="imports,class"]
 
+[.lang-python]
+WARNING: picocli reads the `@Command`, `@Option` and `@Parameters` annotations reflectively from the Java class of the command, which the Java class generated for a Python class does not expose yet, so Python picocli commands cannot be run with the current Python compiler release; the Python snippets document the intended programming model.
+
 
 
 <1> Instantiate a new `ApplicationContext` for the `CLI` environment, in a try-with-resources statements, so that the context is automatically closed before the method returns.

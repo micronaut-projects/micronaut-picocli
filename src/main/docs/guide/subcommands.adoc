@@ -8,6 +8,9 @@ The easiest way to do this is to declare the subcommands on the top-level comman
 
 snippet::io.micronaut.picocli.docs.subcommand.TopCommand[tags="imports,class"]
 
+[.lang-python]
+WARNING: picocli reads the `@Command`, `@Option` and `@Parameters` annotations reflectively from the Java class of the command, which the Java class generated for a Python class does not expose yet, so Python picocli commands cannot be run with the current Python compiler release; the Python snippets document the intended programming model.
+
 <1> The top-level command has two subcommands, `SubCmd1` and `SubCmd2`.
 <2> Let all commands in the hierarchy implement `Runnable` or `Callable`.
 <3> Start the application with `PicocliRunner`. This creates an `ApplicationContext` that instantiates the commands and performs the dependency injection.
