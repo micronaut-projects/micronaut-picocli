@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id 'io.micronaut.build.internal.picocli-testsuite'
+    id 'io.micronaut.build.internal.python'
+}
+
+dependencies {
+    // The Python compiler (micronaut-inject-python) takes the (jar-resolved) compile classpath as its
+    // annotation processor path, so the processors are testImplementation (not testAnnotationProcessor).
+    testImplementation(mn.micronaut.inject.python.test)
+    testImplementation(mn.micronaut.context.python)
+    testImplementation(mnTest.junit.jupiter.api)
+    testImplementation(mnTest.micronaut.test.junit5)
+}
+
+micronautBuild {
+    python {
+        // picocli reads @Command, @Option and @Parameters reflectively from the generated Java classes of the commands
+        compilerArgs.add("-Amicronaut.introspection.allowReflection=micronaut.picocli.docs.*")
+    }
+}
+
+tasks.withType(Test).configureEach {
+    systemProperty "micronaut.python.pool.enabled", "false"
+}

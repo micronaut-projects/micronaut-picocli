@@ -8,6 +8,9 @@ The code below demonstrates how to do this:
 
 snippet::io.micronaut.picocli.docs.config.ConfigDemo[tags="imports,class"]
 
+[.lang-python]
+NOTE: picocli reads the `@Command`, `@Option` and `@Parameters` annotations reflectively from the Java class of the command, so the Python compiler must be told to keep them on the generated class: add `-Amicronaut.introspection.allowReflection=<package>.*` to the compiler arguments (`micronautBuild { python { compilerArgs.add(...) } }` in Gradle) or annotate the command with `@AllowsReflection` (`micronaut.core.annotation`).
+
 
 
 <1> Instantiate a new `ApplicationContext` for the `CLI` environment, in a try-with-resources statements, so that the context is automatically closed before the method returns.
