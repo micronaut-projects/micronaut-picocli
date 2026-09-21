@@ -3,6 +3,8 @@ from typing import Annotated
 
 from jakarta.inject import Inject
 from java.lang import Runnable, System
+from java.util import Map
+from micronaut.core.annotation import Introspected
 from micronaut.configuration.picocli import PicocliRunner
 from micronaut.http import HttpRequest
 from micronaut.http.client import HttpClient
@@ -12,6 +14,7 @@ from picocli.CommandLine import Command, Option, Parameters
 
 
 # tag::class[]
+@Introspected  # TODO(python): the @Option/@Parameters attribute annotations are copied onto the generated class only for an introspected class
 @Command(name="git-star", header=[
     "@|green       _ _      _             |@",  # <1>
     "@|green  __ _(_) |_ __| |_ __ _ _ _  |@",
@@ -40,7 +43,7 @@ class GitStarCommand(Runnable):
         for slug in self.github_slugs:
             http_request = HttpRequest.GET("/repos/" + slug) \
                 .header("User-Agent", "remkop-picocli")
-            m = blocking_client.retrieve(http_request, dict)
+            m = blocking_client.retrieve(http_request, Map)
             print(f"{slug} has {m['watchers']} stars")
 
             if self.verbose:

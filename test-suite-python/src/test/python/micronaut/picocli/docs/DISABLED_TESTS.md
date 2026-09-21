@@ -6,10 +6,10 @@ bug-fixing task list for the final migration wave.
 
 ## Reconciliation
 
-- Last generated active `@Disabled` count: 4 (all four test classes).
+- Last generated active `@Disabled` count: 0.
 - Last generated command: `rg -n "@Disabled\(" test-suite-python/src/test/python`.
 - Last full-suite command: `./gradlew :test-suite-python:test -Ppython-ci`.
-- Last full-suite result: build successful, 4 tests executed (4 test classes), 4 skipped.
+- Last full-suite result: build successful, 4 tests executed (4 test classes), 0 skipped.
 
 ## Migration Rules
 
@@ -27,16 +27,17 @@ bug-fixing task list for the final migration wave.
 
 ## Active `@Disabled` Tests
 
-| Test | Reason |
-| --- | --- |
-| `micronaut.picocli.docs.cli.app.MyCliAppCommandTest` | picocli discovers `@Command`, `@Option` and `@Parameters` reflectively on the Java class of the command. The Python compiler (a) does not resolve the nested annotation types `picocli.CommandLine.Command` / `.Option` / `.Parameters` imported with `from picocli.CommandLine import Command` as decorators (the transformer skips nested annotation types, so the import is left as a plain Python import and fails at runtime with `ModuleNotFoundError: No module named 'picocli'`), and (b) copies only JUnit / `@MicronautTest` annotations onto the generated Java class, so even a resolved `@Command` would not be visible to picocli's reflection and the `@Option` attributes are plain `getVerbose()`/`setVerbose(boolean)` accessors without annotations. `# TODO(python)` |
-| `micronaut.picocli.docs.config.ConfigDemoTest` | same as above (`@Command` on the class) |
-| `micronaut.picocli.docs.quickstart.GitStarCommandTest` | same as above (`@Command`, `@Option`, `@Parameters`) |
-| `micronaut.picocli.docs.subcommand.TopCommandTest` | same as above (`@Command(subcommands=[...])` on three classes) |
+None (core 5.2.3 / micronaut-build 8.1.2: the nested `picocli.CommandLine.Command` / `.Option` / `.Parameters` decorators
+resolve, and the picocli annotations are kept on the generated classes with
+`-Amicronaut.introspection.allowReflection=micronaut.picocli.docs.*`).
 
-The four snippet classes document the intended programming model and are compiled by the Python compiler (the
-generated Java classes implement `Runnable` / `Callable`); the guide carries a `[.lang-python]` WARNING on each of the
-four pages until the compiler emits the picocli annotations on the generated classes.
+## Deviations from the Java samples
+
+| Sample | Reason |
+| --- | --- |
+| `MyCliAppCommand`, `GitStarCommand` are `@Introspected` | picocli reads `@Option` / `@Parameters` from the fields (or annotated setters) of the Java class. The attribute annotations of a Python class are copied onto the generated class only for an introspected class (public fields); for a plain bean the attributes become `getVerbose()` / `setVerbose(boolean)` accessors without annotations, so picocli reports `Unknown option: '-v'`. `# TODO(python)` |
+| `MyCliAppCommandTest` captures the log record with a `logging.StreamHandler` | Python's `logging` is the standard library module (no bridge to Logback), so `LOG.info("Hi!")` is not written to `System.out` and the Java test's `System.setOut` capture does not apply. |
+| `GitStarCommand` uses `retrieve(request, Map)` (`java.util.Map`) | Python builtins (`dict`) are not usable as runtime type arguments (`Unsupported operation identifier 'getType'`). |
 
 ## Commented Unsupported Snippet Ports
 

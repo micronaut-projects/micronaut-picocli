@@ -13,8 +13,13 @@ dependencies {
     testImplementation(mnTest.micronaut.test.junit5)
 }
 
+micronautBuild {
+    python {
+        // picocli reads @Command, @Option and @Parameters reflectively from the generated Java classes of the commands
+        compilerArgs.add("-Amicronaut.introspection.allowReflection=micronaut.picocli.docs.*")
+    }
+}
+
 tasks.withType(Test).configureEach {
     systemProperty "micronaut.python.pool.enabled", "false"
-    // a Truffle host-interop assertion trips on varargs overloads
-    enableAssertions = false
 }

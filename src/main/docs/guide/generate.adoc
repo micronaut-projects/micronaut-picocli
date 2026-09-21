@@ -14,7 +14,7 @@ The generated command looks like this:
 snippet::io.micronaut.picocli.docs.cli.app.MyCliAppCommand[tags="imports,class"]
 
 [.lang-python]
-WARNING: picocli reads the `@Command`, `@Option` and `@Parameters` annotations reflectively from the Java class of the command, which the Java class generated for a Python class does not expose yet, so Python picocli commands cannot be run with the current Python compiler release; the Python snippets document the intended programming model.
+NOTE: picocli reads the `@Command`, `@Option` and `@Parameters` annotations reflectively from the Java class of the command, so the Python compiler must be told to keep them on the generated class: add `-Amicronaut.introspection.allowReflection=<package>.*` to the compiler arguments (`micronautBuild { python { compilerArgs.add(...) } }` in Gradle) or annotate the command with `@AllowsReflection` (`micronaut.core.annotation`). A command with `@Option` / `@Parameters` attributes is also `@Introspected`: the attribute annotations are copied onto the fields of the generated class only for an introspected class.
 
 <1> The picocli link:https://picocli.info/apidocs/picocli/CommandLine.Command.html[@Command] annotation designates this class as a command. The `mixinStandardHelpOptions` attribute adds `--help` and `--version` options to it.
 <2> By implementing `Runnable` or `Callable` your application can be executed in a single line (<4>) and picocli takes care of handling invalid input and requests for usage help (`<cmd> --help`) or version information (`<cmd> --version`).
